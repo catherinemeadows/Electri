@@ -25,18 +25,22 @@ block content
             zoomOffset: -1,
             accessToken: 'pk.eyJ1IjoibmJ1cnkiLCJhIjoiY2t2cmk5cWZvNGdveDJ0bnU4N2k2eHl4NSJ9.nfPDUZJDa1wPD2v5LhF8qg'
         }).addTo(mymap);
+        var matches = []
 
         function getData(){
             fetch('test.json').then(response => response.text()).then(data => {
                 d = JSON.parse(data);
-                matches = d.matches;
-                for (var i = 0; i < matches.length; i++) {
-                    console.log(matches[i]);
-                    var marker = L.marker(L.latLng(parseFloat(matches[i].x_coord), parseFloat(matches[i].y_coord))).addTo(mymap);
+                m = d.matches;
+                for (var i = 0; i < m.length; i++) {
+                    console.log(m[i]);
+                    if (!matches.includes(m[i].id)){
+                        var marker = L.marker(L.latLng(parseFloat(m[i].x_coord), parseFloat(m[i].y_coord))).addTo(mymap);
+                        matches.push(m[i].id)
+                    }
                 }
             })
         };
-        //getData()
+        getData()
         setInterval(getData,1000)
 
     
