@@ -1,7 +1,7 @@
 from __future__ import print_function
+import boto3
 import cv2
 from torchvision import models
-import os
 import numpy as np
 from PIL import Image, ImageDraw
 import matplotlib.pyplot as plt
@@ -16,10 +16,10 @@ dlab = models.segmentation.deeplabv3_resnet101(pretrained=1).eval()
 css3_db = wc.CSS3_HEX_TO_NAMES
 names = []
 rgb_values = []
+
 for color_hex, color_name in css3_db.items():
     names.append(color_name)
     rgb_values.append(wc.hex_to_rgb(color_hex))
-
 kdt_db = KDTree(rgb_values)
 def convert_rgb_to_names(rgb_tuple):
     
@@ -27,7 +27,6 @@ def convert_rgb_to_names(rgb_tuple):
 
     distance, index = kdt_db.query(rgb_tuple)
     return names[index]
-
 def decode_segmap(image,source, nc=21):
   
   label_colors = np.array([(0, 0, 0),  # 0=background
@@ -87,9 +86,9 @@ def decode_segmap(image,source, nc=21):
   # Return a normalized output image for display
   return outImage/255
 
-def segment(net, path, show_orig=True, dev='cpu'):
+def segment(path, dev='cpu'):
   img = Image.open(path)
-  if show_orig: plt.imshow(img); plt.axis('off'); plt.show()
+
   # Comment the Resize and CenterCrop for better inference results
   trf = T.Compose([T.Resize(640), 
                    #T.CenterCrop(224), 
@@ -97,7 +96,7 @@ def segment(net, path, show_orig=True, dev='cpu'):
                    T.Normalize(mean = [0.485, 0.456, 0.406], 
                                std = [0.229, 0.224, 0.225])])
   inp = trf(img).unsqueeze(0).to(dev)
-  out = net.to(dev)(inp)['out']
+  out = dlab.to(dev)(inp)['out']
   om = torch.argmax(out.squeeze(), dim=0).detach().cpu().numpy()
   rgb = decode_segmap(om,path)
   #plt.imshow(rgb); plt.axis('off'); plt.show()
@@ -135,36 +134,38 @@ def save_palette(colors, swatchsize=20, outfile="palette.png" ):
 
     del draw
     palette.save(outfile, "PNG")
-src = 'cars'
-dst = 'cars_dst'
-for file in os.listdir(src):
-  foreground = segment(dlab, os.path.join(src, file),show_orig=False)
-  plt.axis('off')
-  plt.imshow(foreground)
-  fname = file.replace('.jpg','.png')
-  plt.savefig(os.path.join(dst, fname), bbox_inches='tight')
+    
+def get_image_from_s3(bucket, key):
 
-for file in os.listdir(dst):
-  img = Image.open(os.path.join(dst, file))
-  img = img.convert("RGBA")
-  datas = img.getdata()
+    bucket = s3.Bucket(bucket)
+    image = bucket.Object(key)
+    img_data = image.get().get('Body').read()
+    img = Image.open(io.BytesIO(img_data))
+    img.save('img.png', "PNG")
 
-  newData = []
-  for item in datas:
-      if item[0] == 255 and item[1] == 255 and item[2] == 255:
-          newData.append((255, 255, 255, 0))
-      else:
-          newData.append(item)
+s3 = boto3.client('s3')
 
-  img.putdata(newData)
-  img.save(os.path.join(dst, file), "PNG")
-
-
-for file in os.listdir(dst):
-  print('**********')
-  print(file)
-  im = Image.open(os.path.join(dst, file))
-  colors = get_colors(os.path.join(dst, file),numcolors=10)
-  cnames = set([convert_rgb_to_names(color) for color in colors])
-  print(cnames)
-
+def lambda_handler(event, context):
+    state = event['state']
+    for record in event['Records']:
+        path = state.get(record['dynamodb']['NewImage']['img_path']['S'], 0)
+        get_image_from_s3('senior-design-images',path)
+        foreground = segment('img.png')
+        plt.axis('off')
+        plt.imshow(foreground)
+        plt.savefig('img_foreground.png', bbox_inches='tight')
+        img = Image.open('img_foreground.png')
+        img = img.convert("RGBA")
+        datas = img.getdata()
+        newData = []
+        for item in datas:
+            if item[0] == 255 and item[1] == 255 and item[2] == 255:
+                newData.append((255, 255, 255, 0))
+            else:
+                newData.append(item)
+        img.putdata(newData)
+        img.save('img_foreground.png', "PNG")
+        colors = get_colors('img_foreground.png',numcolors=10)
+        cnames = set([convert_rgb_to_names(color) for color in colors])
+        print(cnames)
+    return
