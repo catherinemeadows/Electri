@@ -1,0 +1,8 @@
+boto3
+opencv-python-headless
+torch 
+torchvision
+numpy
+scipy
+webcolors
+matplotlib

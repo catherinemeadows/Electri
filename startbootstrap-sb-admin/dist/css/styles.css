@@ -53,10 +53,10 @@
   --bs-black-rgb: 0, 0, 0;
   --bs-body-color-rgb: 33, 37, 41;
   --bs-body-bg-rgb: 255, 255, 255;
-  /* --bs-font-monospace: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; */
+  --bs-font-sans-serif: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-monospace);
+  --bs-body-font-family: var(--bs-font-sans-serif);
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -7823,8 +7823,7 @@ textarea.form-control-lg {
 
 .bg-primary {
   --bs-bg-opacity: 1;
-  /* background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important; */
-  background-color: rgb(9, 28, 114)
+  background-color: rgba(var(--bs-primary-rgb), var(--bs-bg-opacity)) !important;
 }
 
 .bg-secondary {
@@ -11700,27 +11699,3 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
-
-.yellowdot {
-  height: 15px;
-  width: 15px;
-  background-color: rgb(229, 233, 24);
-  border-radius: 50%;
-  display: inline-block;
-}
-.greendot {
-  height: 15px;
-  width: 15px;
-  background-color: rgb(22, 230, 15);
-  border-radius: 50%;
-  display: inline-block;
-}
-.reddot {
-  height: 15px;
-  width: 15px;
-  background-color: rgb(207, 5, 5);
-  border-radius: 50%;
-  display: inline-block;
-}
-
-#map { height: 180px; }
