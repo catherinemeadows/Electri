@@ -2,10 +2,11 @@ import logging
 import boto3
 import os
 from botocore.exceptions import ClientError
+import time
 
 logging.basicConfig(filename='image_upload.log', level=logging.DEBUG)
 
-def upload_image(file_name, bucket, object_name=None):
+def uploadImage(file_name, bucket, object_name=None):
     # Upload file to S3 bucket
     if object_name is None:
         object_name = os.path.basename(file_name)
@@ -21,7 +22,7 @@ def upload_image(file_name, bucket, object_name=None):
         return False
     return True
 
-def download_image(object_name, bucket, file_name=None):
+def downloadImage(object_name, bucket, file_name=None):
     # Download file from S3 bucket
     if file_name is None:
         file_name = object_name
@@ -37,7 +38,7 @@ def download_image(object_name, bucket, file_name=None):
         return False
     return True
 
-def delete_image(object_name, bucket):
+def deleteImage(object_name, bucket):
     # Delete file from S3 bucket
     # Create client object
     s3 = boto3.client('s3')
@@ -50,8 +51,38 @@ def delete_image(object_name, bucket):
         return False
     return True
 
+def createImageDDBItem(path, timestamp, ddb_table=None):
+    # Create a new DDB item to represent an uploaded image
+    ddb = boto3.client('dynamodb')
+
+    # Default to the images table
+    if ddb_table is None:
+        ddb_table = 'Input_Packets'
+
+    # Attempt to create an item in DynamoDB
+    try:
+        response = ddb.put_item(
+            TableName = ddb_table,
+            Item = {
+                'timestamp': {
+                    'N': timestamp
+                },
+                'img_path': {
+                    'S': path
+                }
+            }
+        )
+    except ClientError as e:
+        logging.error(e)
+        return False
+    return True
 
 # Upload a sample image
-upload_image('image_samples/upload.jpg', 'senior-design-images', 'upload.jpg')
-download_image('cars/upload.jpg', 'senior-design-images', 'image_samples/download.jpg')
-delete_image('cars/upload.jpg', 'senior-design-images')
+uploadImage('image_samples/upload.jpg', 'senior-design-images', 'upload.jpg')
+# Download the sample image
+downloadImage('cars/upload.jpg', 'senior-design-images', 'image_samples/download.jpg')
+# Create the sample image DDB item
+createImageDDBItem('cars/upload.jpg', str(int(time.time())), 'Input_Packets')
+# Delete the image from S3
+deleteImage('cars/upload.jpg', 'senior-design-images')
+# Note: no deletion from DDB due to uncertainty about partition keys. Maybe use a composite key?
