@@ -1,30 +1,50 @@
-extends ../layouts/authentication.pug
-
-block config
-    - var pageTitle = 'Login'
-
-block content
-    .container
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  meta(name='description' content='')
+  meta(name='author' content='')
+  link(rel='stylesheet' href='https://www.w3schools.com/w3css/4/w3.css')
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Lato')
+  link(rel='stylesheet' href='https://fonts.googleapis.com/css?family=Montserrat')
+  link(rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+  title Login - SB Admin
+  link(href='css/styles.css' rel='stylesheet')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
+// Navbar
+.w3-top
+  .w3-bar.w3-blue.w3-card.w3-left-align.w3-large
+    a.w3-bar-item.w3-button.w3-hide-medium.w3-hide-large.w3-right.w3-padding-large.w3-hover-white.w3-large.w3-blue(href='javascript:void(0);' onclick='myFunction()' title='Toggle Navigation Menu')
+      i.fa.fa-bars
+    a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='index.html') Home
+    a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='register.html') Register
+    a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='mission.html') Our Mission
+#layoutAuthentication
+  #layoutAuthentication_content
+    main
+      .container(margin-top='1000px')
         .row.justify-content-center
-            .col-lg-5
-                .card.shadow-lg.border-0.rounded-lg.mt-5
-                    .card-header
-                        h3.text-center.font-weight-light.my-4 Login
-                    .card-body
-                        form
-                            .form-floating.mb-3
-                                input#inputEmail.form-control(type='email', placeholder='name@example.com')
-                                label(for='inputEmail') Email address
-                            .form-floating.mb-3
-                                input#inputPassword.form-control(type='password', placeholder='Password')
-                                label(for='inputPassword') Password
-                            .form-check.mb-3
-                                input#inputRememberPassword.form-check-input(type='checkbox', value='')
-                                label.form-check-label(for='inputRememberPassword')
-                                    | Remember Password
-                            .d-flex.align-items-center.justify-content-between.mt-4.mb-0
-                                a.small(href='password.html') Forgot Password?
-                                a.btn.btn-primary(href='index.html') Login
-                    .card-footer.text-center.py-3
-                        .small
-                            a(href='register.html') Need an account? Sign up!
+          .col-lg-5
+            .card.shadow-lg.border-0.rounded-lg.mt-5
+              .card-header
+                h3.text-center.font-weight-light.my-4 Login
+              .card-body
+                form
+                  .form-floating.mb-3
+                    input#inputEmail.form-control(type='email' placeholder='name@example.com')
+                    label(for='inputEmail') Email address
+                  .form-floating.mb-3
+                    input#inputPassword.form-control(type='password' placeholder='Password')
+                    label(for='inputPassword') Password
+                  .form-check.mb-3
+                    input#inputRememberPassword.form-check-input(type='checkbox' value='')
+                    label.form-check-label(for='inputRememberPassword') Remember Password
+                  .d-flex.align-items-center.justify-content-between.mt-4.mb-0
+                    a.small(href='password.html') Forgot Password?
+                    a.btn.btn-primary(href='dashboard.html') Login
+              .card-footer.text-center.py-3
+                .small
+                  a(href='register.html') Need an account? Sign up!
+script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' crossorigin='anonymous')
+script(src='js/scripts.js')
