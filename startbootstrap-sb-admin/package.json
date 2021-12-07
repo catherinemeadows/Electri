@@ -1,6 +1,5 @@
 {
     "title": "SB Admin",
-    "type": "module",
     "name": "startbootstrap-sb-admin",
     "version": "7.0.4",
     "scripts": {
