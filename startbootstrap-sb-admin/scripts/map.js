@@ -1,49 +1,31 @@
-var mysql = require('mysql');
-const fs = require('fs')
+// Import required AWS SDK clients and commands for Node.js
+import { BatchGetItemCommand } from "@aws-sdk/client-dynamodb";
+import { ddbClient } from "../libs/ddbClient.js";
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
-var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "1229",
-  database: "electri"
-});
-con.connect( async function(err) {
-    if (err) throw err; 
-    while (1){
-        con.query("SELECT * FROM car_matches", function (err2, result, fields) 
+// Set the parameters
+export const params = {
+  RequestItems: {
+    Matches: {
+      Keys: [
         {
-            if (err2) throw err2;
-            data = {
-                'matches':[]
-            }
-            for (let i = 0; i < result.length; i++) {
-                match = {
-                    'id':result[i].id,
-                    'x_coord':result[i].x_coord,
-                    'y_coord':result[i].y_coord,
-                    'image_name':result[i].image_name,
-                    'time':result[i].timestamp,
-                }
-                data['matches'].push(match)
-            }
-            const content = JSON.stringify(data);
+            alertid: { N: "1" },
+            matchid: { N: "1" },
+        },
+      ],
+      ProjectionExpression: "img_path, lat, lon",
+    },
+  },
+};
 
-            fs.writeFile('dist/test.json', content, err3 => 
-            {
-                if (err3) {
-                console.error(err3)
-                return
-                }
-            })
-            
-        });
-        await sleep(2000);
-
-    }
-});
+export const run = async () => {
+  try {
+    const data = await ddbClient.send(new BatchGetItemCommand(params));
+    console.log("Success, items retrieved", data.Responses.Matches);
+    return data;
+  } catch (err) {
+    console.log("Error", err);
+  }
+};
+run();
            
 
