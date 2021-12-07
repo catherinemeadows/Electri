@@ -12,6 +12,9 @@ head
   title Login - SB Admin
   link(href='css/styles.css' rel='stylesheet')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
+style.
+  body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
+  .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
 // Navbar
 .w3-top
   .w3-bar.w3-blue.w3-card.w3-left-align.w3-large
@@ -19,10 +22,12 @@ head
       i.fa.fa-bars
     a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='index.html') Home
     a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='register.html') Register
-    a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='mission.html') Our Mission
+    a.w3-bar-item.w3-button.w3-hide-small.w3-padding-large.w3-hover-white(href='mission.html') Our Impact
 #layoutAuthentication
   #layoutAuthentication_content
     main
+    .w3-row-padding.w3-padding-64.w3-container
+    .w3-row-padding.w3-padding-20.w3-container
       .container(margin-top='1000px')
         .row.justify-content-center
           .col-lg-5
@@ -37,12 +42,9 @@ head
                   .form-floating.mb-3
                     input#inputPassword.form-control(type='password' placeholder='Password')
                     label(for='inputPassword') Password
-                  .form-check.mb-3
-                    input#inputRememberPassword.form-check-input(type='checkbox' value='')
-                    label.form-check-label(for='inputRememberPassword') Remember Password
-                  .d-flex.align-items-center.justify-content-between.mt-4.mb-0
-                    a.small(href='password.html') Forgot Password?
-                    a.btn.btn-primary(href='dashboard.html') Login
+                  .mt-4.mb-0
+                    .d-grid
+                      a.btn.btn-primary.btn-block(href='dashboard.html') Login
               .card-footer.text-center.py-3
                 .small
                   a(href='register.html') Need an account? Sign up!
