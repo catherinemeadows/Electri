@@ -11,6 +11,7 @@ import webcolors as wc
 from scipy.spatial import KDTree
 import os
 import io
+import json
 if not os.path.isdir('/tmp/torch_home'):
     os.mkdir('/tmp/torch_home')
 
@@ -142,8 +143,16 @@ def save_palette(colors, swatchsize=20, outfile="palette.png" ):
 
 def handler(event, context):
     s3 = boto3.client('s3')
+    
+
     for record in event['Records']:
-        path = record['dynamodb']['NewImage']['img_path']['S']
+        print(json.dumps(record,indent=4))
+        if record['eventName'] == 'REMOVE' or record['eventName'] == 'MODIFY':
+            print("Not an insert record")
+            #print(json.dumps(record,indent=4))
+            continue
+        image_type = 'NewImage' if 'NewImage' in record['dynamodb'] else 'OldImage'
+        path = record['dynamodb'][image_type]['img_path']['S']
         print('Downloading image')
 
         s3.download_file('senior-design-images',path, '/tmp/img.png')
@@ -170,13 +179,17 @@ def handler(event, context):
         colors = get_colors('/tmp/img_foreground.png',numcolors=10)
         cnames = set([convert_rgb_to_names(color) for color in colors])
         print(cnames)
-
+        print(colors)
         dynamodb = boto3.resource('dynamodb', region_name='us-east-1')
         table = dynamodb.Table('Image_Info')
         response = table.put_item(
             Item={
                 'img_path': path,
-                'colors': list(cnames)
+                'color_names': list(cnames),
+                'color_rgbs':list(colors),
+                'lat':record['dynamodb'][image_type]['lat']['N'],
+                'lon':record['dynamodb'][image_type]['lon']['N'],
+                'ts':record['dynamodb'][image_type]['timestamp']['N']
             }
         )
         '''
