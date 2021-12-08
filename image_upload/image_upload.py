@@ -90,13 +90,16 @@ def createImageDDBItem(path, timestamp, latitude, longitude, ddb_table=None):
 # Upload a sample image
 
 uploadImage('image_samples/c1.jpg', 'senior-design-images', 'c1.jpg')
-createImageDDBItem('cars/c1.jpg', str(int(time.time())), '38.900071', '-77.040473', 'Input_Packets')
+createImageDDBItem('cars/c1.jpg', str(time.time()), '38.900071', '-77.040473', 'Input_Packets')
 
 uploadImage('image_samples/c2.jpg', 'senior-design-images', 'c2.jpg')
-createImageDDBItem('cars/c2.jpg', str(int(time.time())), '38.900071', '-77.060473', 'Input_Packets')
+createImageDDBItem('cars/c2.jpg', str(time.time()), '38.900071', '-77.060473', 'Input_Packets')
 
 uploadImage('image_samples/c3.jpg', 'senior-design-images', 'c3.jpg')
-createImageDDBItem('cars/c3.jpg', str(int(time.time())), '38.900071', '-77.060473', 'Input_Packets')
+createImageDDBItem('cars/c3.jpg', str(time.time()), '38.900071', '-77.080473', 'Input_Packets')
+
+
+
 # Download the sample image
 # downloadImage('cars/upload.jpg', 'senior-design-images', 'image_samples/download.jpg')
 # Create the sample image DDB item
