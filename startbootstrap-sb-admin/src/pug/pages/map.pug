@@ -16,6 +16,18 @@ block content
     //button(id="new") Add new point
     #map(style={height: '1000px'})
     script.
+        function timeConverter(UNIX_timestamp){
+            var a = new Date(UNIX_timestamp * 1000);
+            var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            var year = a.getFullYear();
+            var month = months[a.getMonth()];
+            var date = a.getDate();
+            var hour = a.getHours();
+            var min = a.getMinutes();
+            var sec = a.getSeconds();
+            var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+            return time;
+        }
         var mymap = L.map('map').setView([38.8898, -77.044], 14);
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
             attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -34,7 +46,10 @@ block content
                 for (var i = 0; i < m.length; i++) {
                     console.log(m[i]);
                     if (!matches.includes(m[i].id)){
-                        var marker = L.marker(L.latLng(parseFloat(m[i].x_coord), parseFloat(m[i].y_coord))).addTo(mymap);
+                        var marker = L.marker(
+                            L.latLng(parseFloat(m[i].x_coord), parseFloat(m[i].y_coord))
+                        ).addTo(mymap).bindPopup("<img width=\"150\" src=\"assets/"+m[i].image_name+"\" /> <br/>"+timeConverter(parseInt(m[i].time)));
+                        
                         matches.push(m[i].id)
                     }
                 }
