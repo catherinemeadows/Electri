@@ -83,11 +83,15 @@ def createImageDDBItem(path, timestamp, longitude, latitude, ddb_table=None):
         return False
     return True
 
+#
+# EXAMPLE API CALLS
+#
+
 # Upload a sample image
-uploadImage('image_samples/upload.jpg', 'senior-design-images', 'upload.jpg')
+# uploadImage('image_samples/upload.jpg', 'senior-design-images', 'upload.jpg')
 # Download the sample image
-downloadImage('cars/upload.jpg', 'senior-design-images', 'image_samples/download.jpg')
+# downloadImage('cars/upload.jpg', 'senior-design-images', 'image_samples/download.jpg')
 # Create the sample image DDB item
-createImageDDBItem('cars/upload.jpg', str(int(time.time())), '38.700000', '-77.200000', 'Input_Packets')
+# createImageDDBItem('cars/upload.jpg', str(int(time.time())), '38.700000', '-77.200000', 'Input_Packets')
 # Delete the image from S3
 # deleteImage('cars/upload.jpg', 'senior-design-images')
