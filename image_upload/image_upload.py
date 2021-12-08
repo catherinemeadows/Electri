@@ -51,7 +51,7 @@ def deleteImage(object_name, bucket):
         return False
     return True
 
-def createImageDDBItem(path, timestamp, longitude, latitude, ddb_table=None):
+def createImageDDBItem(path, timestamp, latitude, longitude, ddb_table=None):
     # Create a new DDB item to represent an uploaded image
     ddb = boto3.client('dynamodb')
 
@@ -88,10 +88,10 @@ def createImageDDBItem(path, timestamp, longitude, latitude, ddb_table=None):
 #
 
 # Upload a sample image
-# uploadImage('image_samples/upload.jpg', 'senior-design-images', 'upload.jpg')
+uploadImage('image_samples/c3.jpg', 'senior-design-images', 'c3.jpg')
 # Download the sample image
 # downloadImage('cars/upload.jpg', 'senior-design-images', 'image_samples/download.jpg')
 # Create the sample image DDB item
-# createImageDDBItem('cars/upload.jpg', str(int(time.time())), '38.700000', '-77.200000', 'Input_Packets')
+createImageDDBItem('cars/c3.jpg', str(int(time.time())), '38.900071', '-77.040473', 'Input_Packets')
 # Delete the image from S3
 # deleteImage('cars/upload.jpg', 'senior-design-images')

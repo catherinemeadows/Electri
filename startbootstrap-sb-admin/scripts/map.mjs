@@ -51,7 +51,7 @@ export const params = {
   KeyConditionExpression: "alertid = :a",
   // FilterExpression: "contains (Subtitle, :topic)",
   ExpressionAttributeValues: {
-    ":a": { N: "1" },
+    ":a": { N: "123456" },
   },
   ProjectionExpression: "alertid, matchid, lon, lat, ts, img_path",
   TableName: "Matches",
@@ -68,11 +68,11 @@ export const run = async () => {
     data.Items.forEach(function (element, index, array) {
       console.log(element)
       var match = {
-        'id':element.alertid.N,
-        'x_coord':element.lat.N,
-        'y_coord':element.lon.N,
+        'id':element.matchid.N,
+        'x_coord':element.lat.S,
+        'y_coord':element.lon.S,
         'image_name':element.img_path.S,
-        'time':element.ts.N,
+        'time':element.ts.S,
       }
       json_data['matches'].push(match)
       const content = JSON.stringify(json_data);
