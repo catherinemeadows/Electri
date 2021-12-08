@@ -11,9 +11,8 @@ head
   script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
 nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
   // Sidebar Toggle
-  button#sidebarToggle.btn.btn-link.btn-sm.order-1.order-lg-0.me-4.me-lg-0(href='#!')
+  button#sidebarToggle.btn.btn-link.btn-sm.order-2.order-lg-0.me-4.me-lg-0(href='#!')
     i.fas.fa-bars
-  // Navbar Brand
   a.navbar-brand.ps-3(href='dashboard.html') Electri: Automated Data Sourcing for AMBER Alert Reponse
   // Navbar Search
   form.d-none.d-md-inline-block.form-inline.ms-auto.me-0.me-md-3.my-2.my-md-0
@@ -27,12 +26,11 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
       a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
         i.fas.fa-user.fa-fw
       ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
-        //
-          <li><a class="dropdown-item" href="#!">Settings</a></li>
-          <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-          <li><hr class="dropdown-divider" /></li>
+        // <li><a class="dropdown-item" href="#!">Settings</a></li>
+        // <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+        // <li><hr class="dropdown-divider" /></li>
         li
-          a.dropdown-item(href='index.html') Logout
+          a.dropdown-item(href='./index.html') Logout
 #layoutSidenav
   #layoutSidenav_nav
     nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
@@ -60,17 +58,33 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
             |                                 Logout
       .sb-sidenav-footer
         .small Logged in as:
-        |                         Start Bootstrap
+        // TODO : pull username from database
+        | Start Bootstrap
   #layoutSidenav_content
     main
       .container-fluid.px-4
-        h1.mt-4 Alert Archives
+        h1.mt-4 Dashboard
         ol.breadcrumb.mb-4
-          li.breadcrumb-item.active Electri Database
+          li.breadcrumb-item.active Admin Dashboard
+        .row
+          .col-xl-6
+            .card.mb-4
+              .card-header
+                i.fas.fa-chart-area.me-1
+                |                                         Issued AMBER Alerts (United States)
+              .card-body
+                canvas#myAreaChart(width='100%' height='40')
+          .col-xl-6
+            .card.mb-4
+              .card-header
+                i.fas.fa-chart-bar.me-1
+                |                                         Electri-Assisted Solved Cases
+              .card-body
+                canvas#myBarChart(width='100%' height='40')
         .row
           .col-xl-3.col-md-6
             .card.bg-primary.text-white.mb-4
-              .card-body Connected Electri Cams: 234
+              .card-body Electri "Opt-In" Users: 234
               .card-footer.d-flex.align-items-center.justify-content-between
                 a.small.text-white.stretched-link(href='#') View Details
                 .small.text-white
