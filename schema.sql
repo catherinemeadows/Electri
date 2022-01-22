@@ -42,6 +42,8 @@ CREATE TABLE image_info (
     model varchar(32),
     vehicle_year int(4),
     license_plate varchar(32),
+    latitude decimal (6,4),
+    longitude decimal (6,4),
     PRIMARY KEY(img_id)
 );
 
