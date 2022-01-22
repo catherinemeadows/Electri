@@ -27,7 +27,7 @@ style.
 header.w3-container.w3-blue.w3-center(style='padding:128px 16px')
   h1.w3-margin.w3-jumbo ELECTRI
   p.w3-xlarge
-    | A service for automating, maximizing, and streamlining data sourcing for vehicle-based AMBER Alerts
+    | Crowdsourcing for AMBER Alert Response
   button.w3-button.w3-black.w3-padding-large.w3-large.w3-margin-top(onclick="location.href='register.html'" type='button') Get Started
 // First Grid
 .w3-row-padding.w3-padding-64.w3-container
@@ -35,13 +35,42 @@ header.w3-container.w3-blue.w3-center(style='padding:128px 16px')
     .w3-twothird
       h1 What is Electri? 
       h5.w3-padding-32
-        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-      p.w3-text-grey
-        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint
-        | occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-        | laboris nisi ut aliquip ex ea commodo consequat.
+        | Electri sources images from dashboard cameras and autonomous vehicle cameras across the United States to automate, maximize, and streamline data sourcing for vehicle-based AMBER Alerts. 
+      p.w3-large.w3-text-grey
+        | As an Electri-user, when your phone receives an AMBER Alert, your car's camera will too. Without having to lift a finger, your car will begin capturing and sending images
+        | to Electri as you drive. We then process the images and find vehicle matches for active cases. The data you provide us is critical. By optting in to our service, you  
+        | are helping reunite families and save lives. 
     .w3-third.w3-center
       img(src='../../assets/img/electri_symbol_large.png' style='width:350px; height:350px; align:right')
+
+.w3-row-padding.w3-center.w3-margin-top
+  .w3-third
+    .w3-card.w3-container(style='min-height:460px')
+      h1 1. Upload
+      br
+      img(src='../../assets/img/camera_car_icon.png' style='width:200px; height:200px; align:right')
+      p.w3-large Your car 
+        b automatically 
+      p.w3-large begins uploading images as you drive 
+      p.w3-large when an active alert is issued
+  .w3-third
+    .w3-card.w3-container(style='min-height:460px')
+      h1 2. Match
+      br
+      img(src='../../assets/img/cloud_server_icon.png' style='width:200px; height:200px; align:right')
+      p.w3-large Our service matches suspicious
+      p.w3-large vehicles to open AMBER alerts
+  .w3-third
+    .w3-card.w3-container(style='min-height:460px')
+      h1 3. Solve
+      br
+      img(src='../../assets/img/map_icon.png' style='width:200px; height:200px; align:right')
+      p.w3-large With your help, law enforcement can better 
+      p.w3-large locate suspicious vehicles and solve 
+      p.w3-large open cases, 
+        b saving lives
+
+
 // Second Grid
 .w3-row-padding.w3-light-grey.w3-padding-64.w3-container
   .w3-content
@@ -50,10 +79,18 @@ header.w3-container.w3-blue.w3-center(style='padding:128px 16px')
     .w3-third.w3-right
       h1 Our Mission
       h5.w3-padding-32
-        | Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        | Electri's mission is simple-to aid in the search for missing children. We do this by building off the AMBER Alert system to source even more data to make timely and effective recommendations to law enforcement on the whereabouts of a suspected vehicle.
       button.w3-button.w3-black.w3-padding-large.w3-center(onclick="location.href='mission.html'" type='button') Learn More
-//- .w3-container.w3-black.w3-center.w3-opacity.w3-padding-64
-//-   h1.w3-margin.w3-xlarge Quote of the day: live life
+.w3-container.w3-black.w3-center.w3-opacity.w3-padding-32
+  .w3-content 
+    .w3-third.w3-left 
+      p.w3-large Visit
+        a(href='https://amberalert.ojp.gov') AmberAlert.gov
+      p.w3-large to learn more about the AMBER Alert program.
+    .w3-third.w3-right 
+      p.w3-large Visit
+        a(href='https://www.missingkids.org/gethelpnow/amber') MissingKids.org 
+      p.w3-large to view active AMBER Alerts and contact the 24-hour hotline.
 script.
   // Used to toggle the menu on small screens when clicking on the menu button
   function myFunction() {
