@@ -19,7 +19,7 @@ CREATE TABLE user (
 );
 
 CREATE TABLE alerts (
-    alert_id int(8) not null auto_increment,
+    id int(8) not null auto_increment,
     alert_status int(1) not null,
     city varchar(32),
     alert_state varchar(32),
@@ -35,7 +35,7 @@ CREATE TABLE alerts (
 );
 
 CREATE TABLE image_info (
-    img_id int(8) auto_increment,
+    id int(8) auto_increment,
     img_path varchar(32) not null,
     colors blob,
     make varchar(32),
