@@ -1,5 +1,4 @@
 import time
-from black import re
 import boto3
 import os
 from flask import request
@@ -19,8 +18,8 @@ SECRET_ARN = "arn:aws:secretsmanager:us-east-1:497100321969:secret:rds-db-creden
 session = boto3.Session(profile_name='default')
 rds_data = session.client('rds-data')
 s3 = boto3.client('s3')
-if not os.path.exists("../dist/assets/images"):
-    os.mkdir("../dist/assets/images")
+if not os.path.exists("dist/assets/images"):
+    os.mkdir("dist/assets/images")
     
 tokens = {}
 username_to_token = {}
