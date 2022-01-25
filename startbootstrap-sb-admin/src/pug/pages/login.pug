@@ -15,6 +15,41 @@ head
 style.
   body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+
+script.
+  function login() {
+    email = document.getElementById("inputEmail").value;
+    password = document.getElementById("inputPassword").value;
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Credentials" : true,
+        'Content-Type': "multipart/form-data" 
+        },
+      body: JSON.stringify(
+        { 
+          username: email,
+          password:password
+      })
+    };
+    const response = fetch('http://127.0.0.1:5000/login', requestOptions).then(async response => {
+      
+      console.log("response received")
+      console.log(response)
+      const data = response.json().then(async data =>{
+        console.log("data received")
+        console.log(data)
+        localStorage['token'] = data['token']
+        //location.href = location.hostname+"/dashboard.html"
+      });
+    })
+    
+
+
+  }
+
 // Navbar
 .w3-top
   .w3-bar.w3-blue.w3-card.w3-left-align.w3-large
@@ -44,7 +79,7 @@ style.
                     label(for='inputPassword') Password
                   .mt-4.mb-0
                     .d-grid
-                      a.btn.btn-primary.btn-block(href='dashboard.html') Login
+                      a.btn.btn-primary.btn-block(onclick="login()") Login
               .card-footer.text-center.py-3
                 .small
                   a(href='register.html') Need an account? Sign up!

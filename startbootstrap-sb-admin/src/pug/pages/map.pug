@@ -38,8 +38,16 @@ block content
         accessToken: 'pk.eyJ1IjoibmJ1cnkiLCJhIjoiY2t2cmk5cWZvNGdveDJ0bnU4N2k2eHl4NSJ9.nfPDUZJDa1wPD2v5LhF8qg',
         }).addTo(mymap);
         var matches = []
-
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 
+                'Content-Type': 'application/json',
+                'My-Custom-Header': 'foobar'
+            },  
+            body: JSON.stringify({ title: 'Fetch PUT Request Example' })
+        }
         function getData(){
+
             fetch('test.json').then(response => response.text()).then(data => {
                 d = JSON.parse(data);
                 m = d.matches;

@@ -1,11 +1,15 @@
+import json
 import time
 import boto3
 import os
 from flask import request
 from flask import Flask
+from flask_cors import CORS
 import random
 import string
+
 app = Flask(__name__)
+CORS(app)
 ENDPOINT="electri-database.c0eyquvqg5yr.us-east-1.rds.amazonaws.com"
 PORT="3306"
 USER="admin"
@@ -23,6 +27,8 @@ if not os.path.exists("dist/assets/images"):
     
 tokens = {}
 username_to_token = {}
+
+
 @app.route('/get_matches_current', methods=['POST'])
 def get_matches_current():
     ok, msg = checkLogin()
@@ -174,20 +180,24 @@ def get_alerts():
 
 @app.route('/login', methods=['POST'])
 def login():
-    username = request.form.get('username')
-    password = request.form.get('password')
+    data = json.loads(request.get_data())
+    username = data['username']
+    password = data['password']
     if not username or not password:
+        print(username, password)
+        print("nope")
         return {
             "code": 400,
             "message": "Check Input"
         }
+    sql_statement = """SELECT * FROM user WHERE username = \"%s\" AND user_password = \"%s\";""" % (username,password)
     results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
         database = DBNAME,
-        sql ="""SELECT * FROM user WHERE username = \"%s\" AND user_password = \"%s\";""" % (username,password))
-    
+        sql =sql_statement)
     if len(results['records']) != 1:
+        print("oops")
         return {
             "Code":200,
             "Message":"Invalid Login"
