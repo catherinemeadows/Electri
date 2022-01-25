@@ -5,6 +5,7 @@ import os
 from flask import request
 from flask import Flask
 from flask_cors import CORS
+from webcolors import name_to_rgb
 import random
 import string
 
@@ -32,6 +33,7 @@ def get_matches_current():
             "message":msg
         }
     data = json.loads(request.get_data())
+
     alerts = data.get('alerts')
     results = None
     if alerts:
@@ -67,7 +69,7 @@ def get_matches_current():
         "data" : parseMatches(results['records'])
     }
 
-@app.route('/get_matches_archived', methods=['POST'])
+@app.route('/getMatchesArchived', methods=['POST'])
 def get_matches_archived():
     ok, msg = checkLogin()
     data = json.loads(request.get_data())
@@ -110,7 +112,7 @@ def get_matches_archived():
         "data" : parseMatches(records)
     }
 
-@app.route('/insert_alert', methods=['POST'])
+@app.route('/insertAlert', methods=['POST'])
 def insert_alert():
     data = json.loads(request.get_data())
     ok, msg = checkLogin()
@@ -119,6 +121,10 @@ def insert_alert():
             "Code":500,
             "message":msg
         }
+    print(data)
+    color_rgb = str({
+        "color":list(name_to_rgb(data.get("color")))
+    })
     results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
@@ -128,33 +134,31 @@ def insert_alert():
                 alert_status,
                 city,
                 alert_state,
-                latitude,
-                longitude,
                 license_plate,
                 make,
                 model,
                 vehicle_year,
-                color
+                color,
+                color_rgb
             ) 
             VALUES 
-            (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s)""" % (
+            (%d,\"%s\",\"%s\",\"%s\",\"%s\",\"%s\",%s,\"%s\",\"%s\")""" % (
                 data.get('alert_status'),
                 data.get('city'),
                 data.get('alert_state'),
-                data.get('latitude'),
-                data.get('longitude'),
                 data.get('license_plate'),
                 data.get('make'),
                 data.get('model'),
                 data.get('vehicle_year'),
                 data.get('color'),
+                color_rgb
                 ))
     return {
         "code": 200,
         "message": "OK"
     }
 
-@app.route('/get_alerts', methods=['POST'])
+@app.route('/getAlerts', methods=['POST'])
 def get_alerts():
     ok, msg = checkLogin()
     data = json.loads(request.get_data())
