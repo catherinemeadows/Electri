@@ -35,7 +35,7 @@ CREATE TABLE alerts (
 );
 
 CREATE TABLE image_info (
-    id int(8) auto_increment,
+    id varchar(128),
     img_path varchar(32) not null,
     colors blob,
     make varchar(32),
@@ -48,7 +48,7 @@ CREATE TABLE image_info (
 );
 
 CREATE TABLE matches (
-    match_id int(8) not null auto_increment,
+    match_id varchar(128) not null,
     img_id int(8) not null,
     alert_id int(8) not null,
     FOREIGN KEY (img_id) REFERENCES image_info(id),

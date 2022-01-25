@@ -10,11 +10,6 @@ import string
 
 app = Flask(__name__)
 CORS(app)
-ENDPOINT="electri-database.c0eyquvqg5yr.us-east-1.rds.amazonaws.com"
-PORT="3306"
-USER="admin"
-PASSWORD = "electri!"
-REGION="us-east-1"
 DBNAME="electri_db"
 ARN = "arn:aws:rds:us-east-1:497100321969:cluster:electridb"
 SECRET_ARN = "arn:aws:secretsmanager:us-east-1:497100321969:secret:rds-db-credentials/cluster-LMOUBFEGQDIUC3YMT3DCVX54MM/admin-sEVflU"
