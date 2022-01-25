@@ -1,201 +1,146 @@
-doctype html
-head
-  meta(charset='utf-8')
-  meta(http-equiv='X-UA-Compatible' content='IE=edge')
-  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
-  meta(name='description' content='')
-  meta(name='author' content='')
-  title Dashboard - SB Admin
-  link(href='https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css' rel='stylesheet')
-  link(href='css/styles.css' rel='stylesheet')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
-nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
-  // Sidebar Toggle
-  button#sidebarToggle.btn.btn-link.btn-sm.order-2.order-lg-0.me-4.me-lg-0(href='#!')
-    i.fas.fa-bars
-  a.navbar-brand.ps-3(href='dashboard.html') Electri: Automated Data Sourcing for AMBER Alert Reponse
-  // Navbar Search
-  form.d-none.d-md-inline-block.form-inline.ms-auto.me-0.me-md-3.my-2.my-md-0
-    .input-group
-      //
-        <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-  // Navbar
-  ul.navbar-nav.ms-auto.ms-md-0.me-3.me-lg-4
-    li.nav-item.dropdown
-      a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
-        i.fas.fa-user.fa-fw
-      ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
-        // <li><a class="dropdown-item" href="#!">Settings</a></li>
-        // <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-        // <li><hr class="dropdown-divider" /></li>
-        li
-          a.dropdown-item(href='./index.html') Logout
-#layoutSidenav
-  #layoutSidenav_nav
-    nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
-      .sb-sidenav-menu
-        .nav
-          a.nav-link(href='dashboard.html')
-            .sb-nav-link-icon
-              i.fas.fa-tachometer-alt
-            |                                 Dashboard
-          a.nav-link(href='archives.html')
-            .sb-nav-link-icon
-              i.fas.fa-table
-            |                                 Archives
-          a.nav-link(href='map.html')
-            .sb-nav-link-icon
-              i.fas.fa-map
-            |                                 Map View
-          a.nav-link(href='manual.html')
-            .sb-nav-link-icon
-              i.fas.fa-map-pin
-            |                                 Issue Alert
-          a.nav-link(href='index.html')
-            .sb-nav-link-icon
-              i.fas.fa-home
-            |                                 Logout
-      .sb-sidenav-footer
-        .small Logged in as:
-        // TODO : pull username from database
-        | Start Bootstrap
-  #layoutSidenav_content
-    main
-      .container-fluid.px-4
-        h1.mt-4 Dashboard
-        ol.breadcrumb.mb-4
-          li.breadcrumb-item.active Admin Dashboard
-        .row
-          .col-xl-6
-            .card.mb-4
-              .card-header
-                i.fas.fa-chart-area.me-1
-                |                                         Issued AMBER Alerts (United States)
-              .card-body
-                canvas#myAreaChart(width='100%' height='40')
-          .col-xl-6
-            .card.mb-4
-              .card-header
-                i.fas.fa-chart-bar.me-1
-                |                                         Electri-Assisted Solved Cases
-              .card-body
-                canvas#myBarChart(width='100%' height='40')
-        .row
-          .col-xl-3.col-md-6
-            .card.bg-primary.text-white.mb-4
-              .card-body Electri "Opt-In" Users: 234
-              .card-footer.d-flex.align-items-center.justify-content-between
-                a.small.text-white.stretched-link(href='#') View Details
-                .small.text-white
-                  i.fas.fa-angle-right
-          .col-xl-3.col-md-6
-            .card.bg-warning.text-white.mb-4
-              .card-body Case Status: Actively Seeking
-              .card-footer.d-flex.align-items-center.justify-content-between
-                a.small.text-white.stretched-link(href='#') View All
-                .small.text-white
-                  i.fas.fa-angle-right
-          .col-xl-3.col-md-6
-            .card.bg-success.text-white.mb-4
-              .card-body Case Status: Solved, Inactive
-              .card-footer.d-flex.align-items-center.justify-content-between
-                a.small.text-white.stretched-link(href='#') View All
-                .small.text-white
-                  i.fas.fa-angle-right
-          .col-xl-3.col-md-6
-            .card.bg-danger.text-white.mb-4
-              .card-body Case Status: Unsolved, Inactive
-              .card-footer.d-flex.align-items-center.justify-content-between
-                a.small.text-white.stretched-link(href='#') View All
-                .small.text-white
-                  i.fas.fa-angle-right
+extends ../layouts/dashboard.pug
+
+block config
+    - var bodyClass = 'sb-nav-fixed'
+    - var pageTitle = 'Dashboard';
+    - var index = false;
+    - var sidenavStyle = 'sb-sidenav-dark'
+
+block content
+  .container-fluid.px-4
+    h1.mt-4 Dashboard
+    ol.breadcrumb.mb-4
+      li.breadcrumb-item.active Admin Dashboard
+    .row
+      .col-xl-6
         .card.mb-4
           .card-header
-            i.fas.fa-table.me-1
-            |                                 Alert Archives
+            i.fas.fa-chart-area.me-1
+            |                                         Issued AMBER Alerts (United States)
           .card-body
-            table#datatablesSimple
-              thead
-                tr
-                  th Alert ID
-                  th Timestamp
-                  th Location
-                  th Make
-                  th Model
-                  th LIC
-                  th Description
-                  th Status
-              tfoot
-                tr
-                  th Alert ID
-                  th Timestamp
-                  th Location
-                  th Make
-                  th Model
-                  th LIC
-                  th Description
-                  th Status
-              tbody
-                tr
-                  td A36748901
-                  td 22 OCT 2021, 14:15:09
-                  td San Francisco, CA
-                  td Toyota
-                  td Corolla
-                  td Black
-                  td 4SEY238
-                  td
-                    div(style='text-align: center')
-                      span.yellowdot
-                tr
-                  td A36748900
-                  td 22 OCT 2021, 12:08:17
-                  td Cincinnati, Ohio
-                  td Honda
-                  td --
-                  td Dark
-                  td 8GED124
-                  td
-                    div(style='text-align: center')
-                      span.yellowdot
-                tr
-                  td A36748899
-                  td 20 OCT 2021, 09:20:36
-                  td San Diego, CA
-                  td Toyota
-                  td Camry
-                  td Tan
-                  td --
-                  td
-                    div(style='text-align: center')
-                      span.greendot
-                tr
-                  td A36748888
-                  td 29 SEPT 2021, 23:15:54
-                  td Memphis, TN
-                  td Kia
-                  td Soul
-                  td Green
-                  td 7TRN768
-                  td
-                    div(style='text-align: center')
-                      span.yellowdot
-                tr
-                  td A36748887
-                  td 25 SEPT 2021, 14:09:43
-                  td Portland, Maine
-                  td Ford
-                  td Fiat
-                  td Red
-                  td --
-                  td
-                    div(style='text-align: center')
-                      span.reddot
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' crossorigin='anonymous')
-script(src='js/scripts.js')
-script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js' crossorigin='anonymous')
-script(src='assets/demo/chart-area-demo.js')
-script(src='assets/demo/chart-bar-demo.js')
-script(src='https://cdn.jsdelivr.net/npm/simple-datatables@latest' crossorigin='anonymous')
-script(src='js/datatables-simple-demo.js')
+            canvas#myAreaChart(width='100%' height='40')
+      .col-xl-6
+        .card.mb-4
+          .card-header
+            i.fas.fa-chart-bar.me-1
+            |                                         Electri-Assisted Solved Cases
+          .card-body
+            canvas#myBarChart(width='100%' height='40')
+    .row
+      .col-xl-3.col-md-6
+        .card.bg-primary.text-white.mb-4
+          .card-body Electri "Opt-In" Users: 234
+          .card-footer.d-flex.align-items-center.justify-content-between
+            a.small.text-white.stretched-link(href='#') View Details
+            .small.text-white
+              i.fas.fa-angle-right
+      .col-xl-3.col-md-6
+        .card.bg-warning.text-white.mb-4
+          .card-body Case Status: Actively Seeking
+          .card-footer.d-flex.align-items-center.justify-content-between
+            a.small.text-white.stretched-link(href='#') View All
+            .small.text-white
+              i.fas.fa-angle-right
+      .col-xl-3.col-md-6
+        .card.bg-success.text-white.mb-4
+          .card-body Case Status: Solved, Inactive
+          .card-footer.d-flex.align-items-center.justify-content-between
+            a.small.text-white.stretched-link(href='#') View All
+            .small.text-white
+              i.fas.fa-angle-right
+      .col-xl-3.col-md-6
+        .card.bg-danger.text-white.mb-4
+          .card-body Case Status: Unsolved, Inactive
+          .card-footer.d-flex.align-items-center.justify-content-between
+            a.small.text-white.stretched-link(href='#') View All
+            .small.text-white
+              i.fas.fa-angle-right
+    .card.mb-4
+      .card-header
+        i.fas.fa-table.me-1
+        |                                 Alert Archives
+      .card-body
+        table#datatablesSimple
+          thead
+            tr
+              th Alert ID
+              th Timestamp
+              th Location
+              th Make
+              th Model
+              th LIC
+              th Description
+              th Status
+          tfoot
+            tr
+              th Alert ID
+              th Timestamp
+              th Location
+              th Make
+              th Model
+              th LIC
+              th Description
+              th Status
+          tbody
+            tr
+              td A36748901
+              td 22 OCT 2021, 14:15:09
+              td San Francisco, CA
+              td Toyota
+              td Corolla
+              td Black
+              td 4SEY238
+              td
+                div(style='text-align: center')
+                  span.yellowdot
+            tr
+              td A36748900
+              td 22 OCT 2021, 12:08:17
+              td Cincinnati, Ohio
+              td Honda
+              td --
+              td Dark
+              td 8GED124
+              td
+                div(style='text-align: center')
+                  span.yellowdot
+            tr
+              td A36748899
+              td 20 OCT 2021, 09:20:36
+              td San Diego, CA
+              td Toyota
+              td Camry
+              td Tan
+              td --
+              td
+                div(style='text-align: center')
+                  span.greendot
+            tr
+              td A36748888
+              td 29 SEPT 2021, 23:15:54
+              td Memphis, TN
+              td Kia
+              td Soul
+              td Green
+              td 7TRN768
+              td
+                div(style='text-align: center')
+                  span.yellowdot
+            tr
+              td A36748887
+              td 25 SEPT 2021, 14:09:43
+              td Portland, Maine
+              td Ford
+              td Fiat
+              td Red
+              td --
+              td
+                div(style='text-align: center')
+                  span.reddot
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' crossorigin='anonymous')
+  script(src='js/scripts.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js' crossorigin='anonymous')
+  script(src='assets/demo/chart-area-demo.js')
+  script(src='assets/demo/chart-bar-demo.js')
+  script(src='https://cdn.jsdelivr.net/npm/simple-datatables@latest' crossorigin='anonymous')
+  script(src='js/datatables-simple-demo.js')

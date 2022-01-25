@@ -1,32 +1,27 @@
-nav(class=['sb-sidenav', 'accordion'] class=sidenavStyle)#sidenavAccordion
-        
-    .sb-sidenav-menu
-        
+nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
+      .sb-sidenav-menu
         .nav
-    
-        
-            a.nav-link(href='dashboard.html')
-                .sb-nav-link-icon
-                    i.fas.fa-tachometer-alt
-                | Dashboard
-            a.nav-link(href='archives.html')
-                .sb-nav-link-icon
-                    i.fas.fa-table
-                | Archives
-            a.nav-link(href='map.html')
-                .sb-nav-link-icon
-                    i.fas.fa-map
-                | Map View
-            a.nav-link(href='manual.html')
-                .sb-nav-link-icon
-                    i.fas.fa-map-pin
-                | Issue Alert
-            a.nav-link(href='index.html')
-                .sb-nav-link-icon
-                    i.fas.fa-home
-                | Logout
-                        
-    .sb-sidenav-footer
-        
+          a.nav-link(href='dashboard.html')
+            .sb-nav-link-icon
+              i.fas.fa-tachometer-alt
+            |                                 Dashboard
+          a.nav-link(href='archives.html')
+            .sb-nav-link-icon
+              i.fas.fa-table
+            |                                 Archives
+          a.nav-link(href='map.html')
+            .sb-nav-link-icon
+              i.fas.fa-map
+            |                                 Map View
+          a.nav-link(href='manual.html')
+            .sb-nav-link-icon
+              i.fas.fa-map-pin
+            |                                 Issue Alert
+          a.nav-link(href='index.html')
+            .sb-nav-link-icon
+              i.fas.fa-home
+            |                                 Logout
+      .sb-sidenav-footer
         .small Logged in as:
+        // TODO : pull username from database
         | Start Bootstrap

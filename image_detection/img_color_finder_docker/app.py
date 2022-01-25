@@ -77,6 +77,6 @@ def handler(event, context):
     print(cnames)
     print(colors)
     ret = {}
-    ret['colors'] = colors
-    ret['color_names'] = cnames
+    ret['colors'] = str({'colors':colors})
+    ret['color_names'] = str({'cnames':cnames})
     return ret

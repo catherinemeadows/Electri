@@ -28,8 +28,7 @@ if not os.path.exists("dist/assets/images"):
 tokens = {}
 username_to_token = {}
 
-
-@app.route('/get_matches_current', methods=['POST'])
+@app.route('/getMatches', methods=['POST'])
 def get_matches_current():
     ok, msg = checkLogin()
     if not ok:
@@ -37,37 +36,54 @@ def get_matches_current():
             "Code":500,
             "message":msg
         }
-    results = rds_data.execute_statement(
-        resourceArn = ARN,
-        secretArn = SECRET_ARN,
-        database = DBNAME,
-        sql ="""
-            SELECT alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
-            FROM alerts 
-            JOIN matches ON matches.alert_id = alerts.id 
-            JOIN image_info ON matches.img_id = image_info.id 
-            WHERE alerts.alert_status = 1;
-        """
-    )
+    data = json.loads(request.get_data())
+    alerts = data.get('alerts')
+    results = None
+    if alerts:
+        results = rds_data.execute_statement(
+            resourceArn = ARN,
+            secretArn = SECRET_ARN,
+            database = DBNAME,
+            sql ="""
+                SELECT alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
+                FROM alerts 
+                JOIN matches ON matches.alert_id = alerts.id 
+                JOIN image_info ON matches.img_id = image_info.id 
+                WHERE alerts.alert_status = 1 AND alerts.id in %s;
+            """ % (tuple(alerts))
+        )
+    else:
+        results = rds_data.execute_statement(
+            resourceArn = ARN,
+            secretArn = SECRET_ARN,
+            database = DBNAME,
+            sql ="""
+                SELECT alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
+                FROM alerts 
+                JOIN matches ON matches.alert_id = alerts.id 
+                JOIN image_info ON matches.img_id = image_info.id 
+                WHERE alerts.alert_status = 1;
+            """
+        )
+        
     return {
         "code": 200,
         "message": "OK",
-        "matches" : parseMatches(results['records'])
+        "data" : parseMatches(results['records'])
     }
-
-
 
 @app.route('/get_matches_archived', methods=['POST'])
 def get_matches_archived():
     ok, msg = checkLogin()
+    data = json.loads(request.get_data())
     if not ok:
         return {
             "Code":500,
             "message":msg
         }
     records = None
-    if 'alert_id' in request.form:
-        alertId = request.form['alert_id']
+    if 'alert_id' in data:
+        alertId = data['alert_id']
         results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
@@ -96,11 +112,12 @@ def get_matches_archived():
         return {
         "code": 200,
         "message": "OK",
-        "matches" : parseMatches(records)
+        "data" : parseMatches(records)
     }
 
 @app.route('/insert_alert', methods=['POST'])
 def insert_alert():
+    data = json.loads(request.get_data())
     ok, msg = checkLogin()
     if not ok:
         return {
@@ -126,16 +143,16 @@ def insert_alert():
             ) 
             VALUES 
             (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s)""" % (
-                request.form['alert_staus'],
-                request.form['city'],
-                request.form['alert_state'],
-                request.form['latitude'],
-                request.form['longitude'],
-                request.form['license_plate'],
-                request.form['make'],
-                request.form['model'],
-                request.form['vehicle_year'],
-                request.form['color'],
+                data.get('alert_staus'),
+                data.get('city'),
+                data.get('alert_state'),
+                data.get('latitude'),
+                data.get('longitude'),
+                data.get('license_plate'),
+                data.get('make'),
+                data.get('model'),
+                data.get('vehicle_year'),
+                data.get('color'),
                 ))
     return {
         "code": 200,
@@ -145,18 +162,19 @@ def insert_alert():
 @app.route('/get_alerts', methods=['POST'])
 def get_alerts():
     ok, msg = checkLogin()
+    data = json.loads(request.get_data())
     if not ok:
         return {
             "Code":500,
             "message":msg
         }
     results = None
-    if 'alert_status' in request.form:
+    if 'alert_status' in data:
         results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
         database = DBNAME,
-        sql ="""SELECT * FROM alerts WHERE alert_status = %s;""" % (request.form['alert_status']))
+        sql ="""SELECT * FROM alerts WHERE alert_status = %s;""" % (data['alert_status']))
     else:
         results = rds_data.execute_statement(
         resourceArn = ARN,
@@ -174,10 +192,19 @@ def get_alerts():
     return {
         "code": 200,
         "message": "OK",
-        "alerts" : alerts
+        "data" : alerts
     }
 
-
+@app.route('/verifyLogin', methods=['POST'])
+def verifylogin():
+    
+    ok, msg = checkLogin()
+    return {
+        "Code":200,
+        "message":msg,
+        "data":ok
+    }
+    
 @app.route('/login', methods=['POST'])
 def login():
     data = json.loads(request.get_data())
@@ -212,12 +239,13 @@ def login():
     return {
         "code":200,
         "message":"OK",
-        "token": token
+        "data": token
     }
     
 @app.route('/logout', methods=['POST'])
 def logout():
-    token = request.form.get('token')
+    data = json.loads(request.get_data())
+    token = data.get('token')
     if not token:
         return {
             "code" :400,
@@ -234,9 +262,9 @@ def logout():
         "message":"OK"
     }
         
-
 @app.route('/register', methods=['POST'])
 def register():
+    data = json.loads(request.get_data())
     ok, msg = checkLogin()
     if not ok:
         return {
@@ -250,12 +278,12 @@ def register():
         sql=
         """INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s);""" % 
         (
-            request.form['username'],
-            request.form['user_password'],
-            request.form['fname'],
-            request.form['lname'],
-            request.form['email'],
-            request.form['organization']
+            data.get('username'),
+            data.get('user_password'),
+            data.get('fname'),
+            data.get('lname'),
+            data.get('email'),
+            data.get('organization')
         )
     )
     return {
@@ -264,14 +292,12 @@ def register():
     }
 
 def download_image_if_needed(img_path):
-    if not os.path.isfile('../dist/assets/'+img_path):
-        with open('../dist/assets/'+img_path, 'wb') as f:
-            s3.download_fileobj('electri-upload-images', img_path, f)
+    if not os.path.isfile('dist/assets/'+img_path):
+        with open('dist/assets/'+img_path, 'wb') as f:
+            s3.download_fileobj('electri-image-uploads', img_path, f)
        
 def parseMatches(records): 
-    matches = {
-        "matches":[]
-    }
+    matches = []
     for record in records:
         match_data = {
             "alert_id": record[0]['longValue'],
@@ -280,19 +306,20 @@ def parseMatches(records):
             "longitude": float(record[3]['stringValue'])
         }
         download_image_if_needed(record[1]['stringValue'])
-        matches['matches'].append(match_data)
+        matches.append(match_data)
     return matches
 
 def checkLogin():
-    token = request.form.get('token')
+    data = json.loads(request.get_data())
+    token = data.get('token')
     if not token:
         return False, 'Internal error'
     
-    if request.form['token'] not in list(tokens.keys()):
+    if data['token'] not in list(tokens.keys()):
         return False, 'Invalid login'
-    elif time.time() > tokens[request.form['token']]:
+    elif time.time() > tokens[data['token']]:
         return False, 'Login Expired, please login again'
-    tokens[request.form['token']] = time.time() + 3600
+    tokens[data['token']] = time.time() + 3600
     return True, ''
     
             
