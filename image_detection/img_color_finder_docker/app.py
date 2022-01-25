@@ -33,7 +33,7 @@ def get_colors(image_file, numcolors=10, resize=150):
     for i in range(numcolors):
         palette_index = color_counts[i][1]
         dominant_color = palette[palette_index*3:palette_index*3+3]
-        colors.append(tuple(dominant_color))
+        colors.append(list(dominant_color))
 
     return colors
 
@@ -57,9 +57,9 @@ def handler(event, context):
     path = event['preprocessed_image_path']
     print('Downloading image')
 
-    s3.download_file('electri_upload_images',path, '/tmp/img.png')
+    s3.download_file('electri-image-uploads',path, '/tmp/img_foreground.png')
     
-    img = Image.open('/tmp/img.png')
+    img = Image.open('/tmp/img_foreground.png')
     img = img.convert("RGBA")
     datas = img.getdata()
     newData = []
@@ -69,14 +69,14 @@ def handler(event, context):
         else:
             newData.append(item)
     img.putdata(newData)
-    img.save('/tmp/img.png', "PNG")
+    img.save('/tmp/img_foreground.png', "PNG")
     print('saving new forground')
     print('getting colors')
     colors = get_colors('/tmp/img_foreground.png',numcolors=10)
-    cnames = set([convert_rgb_to_names(color) for color in colors])
+    cnames = list([convert_rgb_to_names(color) for color in colors])
     print(cnames)
     print(colors)
     ret = {}
-    ret['colors'] = colors
-    ret['color_names'] = cnames
+    ret['colors'] = str({'colors':colors})
+    ret['color_names'] = str({'cnames':cnames})
     return ret
