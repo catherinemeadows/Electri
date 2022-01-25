@@ -138,7 +138,7 @@ def insert_alert():
             ) 
             VALUES 
             (%d,%s,%s,%s,%s,%s,%s,%s,%s,%s)""" % (
-                data.get('alert_staus'),
+                data.get('alert_status'),
                 data.get('city'),
                 data.get('alert_state'),
                 data.get('latitude'),

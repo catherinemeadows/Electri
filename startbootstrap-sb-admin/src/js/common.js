@@ -1,4 +1,5 @@
 async function sendRequest(endpoint, data) {
+    data.token = localStorage.getItem('token')
     const requestOptions = {
       method: 'POST',
       headers: { 
@@ -15,7 +16,7 @@ async function sendRequest(endpoint, data) {
 async function logout(){
   console.log("logging out")
   if (localStorage.getItem('token') !== null) {        
-      sendRequest('/logout', {token: localStorage.getItem('token')}) 
+      sendRequest('/logout', {}) 
       localStorage.removeItem('token');
       console.log(localStorage)
   }
@@ -23,15 +24,17 @@ async function logout(){
 }
 
 async function getCurrentMatches(alert_filters){
-  data = await sendRequest('/getMatches', {token: localStorage.getItem('token'),'alerts':alert_filters}) 
+  data = await sendRequest('/getMatches', {'alerts':alert_filters}) 
   return data
 }
 
 async function getAlerts(){
-
+  data = await sendRequest('/getAlerts', {'alerts':alert_filters}) 
+  return data
 }
-async function addAlert(){ 
-
+async function addAlert(alertData){ 
+  
+  data = await sendRequest('/insertAlert', alertData)
 }
 
 async function registerUser(){
