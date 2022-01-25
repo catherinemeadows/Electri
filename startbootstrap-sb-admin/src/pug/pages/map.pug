@@ -2,7 +2,7 @@ extends ../layouts/dashboard.pug
 
 block config
     - var bodyClass = 'sb-nav-fixed'
-    - var pageTitle = 'Dashboard';
+    - var pageTitle = 'Map View';
     - var index = false;
     - var sidenavStyle = 'sb-sidenav-dark'
     
@@ -38,30 +38,19 @@ block content
         accessToken: 'pk.eyJ1IjoibmJ1cnkiLCJhIjoiY2t2cmk5cWZvNGdveDJ0bnU4N2k2eHl4NSJ9.nfPDUZJDa1wPD2v5LhF8qg',
         }).addTo(mymap);
         var matches = []
-        const requestOptions = {
-            method: 'PUT',
-            headers: { 
-                'Content-Type': 'application/json',
-                'My-Custom-Header': 'foobar'
-            },  
-            body: JSON.stringify({ title: 'Fetch PUT Request Example' })
-        }
+        alertFilters = []
         function getData(){
-
-            fetch('test.json').then(response => response.text()).then(data => {
-                d = JSON.parse(data);
-                m = d.matches;
-                for (var i = 0; i < m.length; i++) {
-                    console.log(m[i]);
-                    if (!matches.includes(m[i].id)){
+            
+            getCurrentMatches(alertFilters).then(data => {
+                for (var i = 0; i < data.length; i++) {
+                    if (!matches.includes(data[i].id)){
                         var marker = L.marker(
-                            L.latLng(parseFloat(m[i].x_coord), parseFloat(m[i].y_coord))
-                        ).addTo(mymap).bindPopup("<img width=\"150\" src=\"assets/"+m[i].image_name+"\" /> <br/>"+timeConverter(parseInt(m[i].time)));
+                            L.latLng(parseFloat(data[i].latitude), parseFloat(data[i].longitude))
+                        ).addTo(mymap).bindPopup("<img width=\"150\" src=\"assets/"+data[i].img_path+"\" /> <br/>"+timeConverter(Date.now()));
                         
-                        matches.push(m[i].id)
+                        matches.push(data[i].id)
                     }
                 }
             })
         };
-        getData()
         setInterval(getData,1000)

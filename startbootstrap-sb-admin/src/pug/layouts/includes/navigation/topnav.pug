@@ -1,30 +1,23 @@
 nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
-
-    // Sidebar Toggle
-    button#sidebarToggle.btn.btn-link.btn-sm.order-1.order-lg-0.me-4.me-lg-0(href='#!')
-        i.fas.fa-bars
-
-    // Navbar Brand
-    a.navbar-brand.ps-3(href='index.html')
-        | Electri: Automated Data Sourcing for AMBER Alert Reponse
-
-    // Sidebar Toggle
-    button#sidebarToggle.btn.btn-link.btn-sm.order-1.order-lg-0.me-4.me-lg-0(href='#!')
-        i.fas.fa-bars
-
-    // Navbar Search
-    form.d-none.d-md-inline-block.form-inline.ms-auto.me-0.me-md-3.my-2.my-md-0
-        .input-group
-            input.form-control(type='text', placeholder='Search by Alert ID...', aria-label='Search by Alert ID...', aria-describedby='btnNavbarSearch')
-            button#btnNavbarSearch.btn.btn-primary(type='button')
-                i.fas.fa-search
-
-    // Navbar
-    ul.navbar-nav.ms-auto.ms-md-0.me-3.me-lg-4
-        li.nav-item.dropdown
-            a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
-                i.fas.fa-user.fa-fw
-            ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
-                li
-                    a.dropdown-item(href='#!') Logout
+  // Sidebar Toggle
+  button#sidebarToggle.btn.btn-link.btn-sm.order-2.order-lg-0.me-4.me-lg-0(href='#!')
+    i.fas.fa-bars
+  a.navbar-brand.ps-3(href='dashboard.html') Electri: Automated Data Sourcing for AMBER Alert Reponse
+  // Navbar Search
+  form.d-none.d-md-inline-block.form-inline.ms-auto.me-0.me-md-3.my-2.my-md-0
+    .input-group
+      //
+        <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+  // Navbar
+  ul.navbar-nav.ms-auto.ms-md-0.me-3.me-lg-4
+    li.nav-item.dropdown
+      a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+        i.fas.fa-user.fa-fw
+      ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
+        // <li><a class="dropdown-item" href="#!">Settings</a></li>
+        // <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+        // <li><hr class="dropdown-divider" /></li>
+        li
+          a.dropdown-item.logoutButton(onclick="logout()") Logout
 

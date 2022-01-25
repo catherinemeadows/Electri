@@ -12,42 +12,25 @@ head
   title Login - SB Admin
   link(href='css/styles.css' rel='stylesheet')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
+  
 style.
   body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
-
+script(src='../js/common.js')
 script.
-  function login() {
+  if (localStorage.getItem('token') !== null && sendRequest('verifyLogin', {token: localStorage.getItem('token')})) {   
+      window.location.pathname = "/dashboard.html" 
+  }
+  async function login(){
     email = document.getElementById("inputEmail").value;
     password = document.getElementById("inputPassword").value;
-
-    const requestOptions = {
-      method: 'POST',
-      headers: { 
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Credentials" : true,
-        'Content-Type': "multipart/form-data" 
-        },
-      body: JSON.stringify(
-        { 
-          username: email,
-          password:password
-      })
-    };
-    const response = fetch('http://127.0.0.1:5000/login', requestOptions).then(async response => {
-      
-      console.log("response received")
-      console.log(response)
-      const data = response.json().then(async data =>{
-        console.log("data received")
-        console.log(data)
-        localStorage['token'] = data['token']
-        //location.href = location.hostname+"/dashboard.html"
-      });
-    })
-    
-
-
+    body = { 
+      username: email,
+      password:password
+    }
+    const data = await sendRequest('/login', body)
+    localStorage['token'] = data
+    window.location.pathname = "/dashboard.html"
   }
 
 // Navbar
@@ -79,7 +62,7 @@ script.
                     label(for='inputPassword') Password
                   .mt-4.mb-0
                     .d-grid
-                      a.btn.btn-primary.btn-block(onclick="login()") Login
+                      a.loginButton.btn.btn-primary.btn-block(onclick="login()") Login
               .card-footer.text-center.py-3
                 .small
                   a(href='register.html') Need an account? Sign up!
