@@ -95,9 +95,7 @@ def handler(event, context):
   s3 = boto3.client('s3')    
   print('Downloading image')
   path = event['img_path']
-  print(context)
-  execution_name = context['Execution']['Name']
-  event['execution_name']=execution_name
+  execution_name = event['execution_name']
   s3.download_file('electri-image-uploads',path, '/tmp/img.png')
   print("Segmenting background")
   foreground = segment('/tmp/img.png')
