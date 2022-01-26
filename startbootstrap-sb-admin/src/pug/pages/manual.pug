@@ -1,141 +1,88 @@
-doctype html
-head
-  meta(charset='utf-8')
-  meta(http-equiv='X-UA-Compatible' content='IE=edge')
-  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
-  meta(name='description' content='')
-  meta(name='author' content='')
-  title Dashboard - SB Admin
-  link(href='https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css' rel='stylesheet')
-  link(href='css/styles.css' rel='stylesheet')
-  script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
-nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
-  // Sidebar Toggle
-  button#sidebarToggle.btn.btn-link.btn-sm.order-2.order-lg-0.me-4.me-lg-0(href='#!')
-    i.fas.fa-bars
-  a.navbar-brand.ps-3(href='dashboard.html') Electri: Automated Data Sourcing for AMBER Alert Reponse
-  // Navbar Search
-  form.d-none.d-md-inline-block.form-inline.ms-auto.me-0.me-md-3.my-2.my-md-0
-    .input-group
-      //
-        <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-        <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-  // Navbar
-  ul.navbar-nav.ms-auto.ms-md-0.me-3.me-lg-4
-    li.nav-item.dropdown
-      a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
-        i.fas.fa-user.fa-fw
-      ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
-        li
-          a.dropdown-item(href='./index.html') Logout
-#layoutSidenav
-  #layoutSidenav_nav
-    nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
-      .sb-sidenav-menu
-        .nav
-          a.nav-link(href='dashboard.html')
-            .sb-nav-link-icon
-              i.fas.fa-tachometer-alt
-            |                                 Dashboard
-          a.nav-link(href='archives.html')
-            .sb-nav-link-icon
-              i.fas.fa-table
-            |                                 Archives
-          a.nav-link(href='map.html')
-            .sb-nav-link-icon
-              i.fas.fa-map
-            |                                 Map View
-          a.nav-link(href='manual.html')
-            .sb-nav-link-icon
-              i.fas.fa-map-pin
-            |                                 Issue Alert
-          a.nav-link(href='index.html')
-            .sb-nav-link-icon
-              i.fas.fa-home
-            |                                 Logout
-      .sb-sidenav-footer
-        .small Logged in as:
-        // TODO : pull username from database
-        | Start Bootstrap
-  #layoutSidenav_content
-    main
-      .container-fluid.px-4
-        h1.mt-4 Manual Alerts
-        ol.breadcrumb.mb-4
-          li.breadcrumb-item.active Issue manual Electri alerts to begin seeking a vehicle
-        .row
-        .container
-        .row.justify-content-center
-          .col-lg-10
-            .card.shadow-lg.border-0.rounded-lg.mt-5
-              .card-header
-                //- h3.text-center.font-weight-light.my-4 Issue Custom Alert
-                p.w3-text-grey
-                | All manual alerts must be issued by verified users with approval from Electri and its affiliated law enforcement agencies. Upon approval, alerts will be distributed to users. 
-              .card-body
-                form
-                  .row.mb-3
-                    h4.w3-text-grey.text-center User Verification
-                  .row.mb-3
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputFirstName.form-control(type='text' placeholder='Enter your first name')
-                        label(for='inputFirstName') First name
-                    .col-md-6
-                      .form-floating
-                        input#inputLastName.form-control(type='text' placeholder='Enter your last name')
-                        label(for='inputLastName') Last name
-                  .form-floating.mb-3
-                    input#inputEmail.form-control(type='email' placeholder='name@example.com')
-                    label(for='inputEmail') Email address
-                  .form-floating.mb-3
-                    input#inputOrganization.form-control(type='text' placeholder='Affiliation')
-                    label(for='inputOrganization') Organization
-                  .row.mb-3
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputPassword.form-control(type='password' placeholder='Create a password')
-                        label(for='inputPassword') Password
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputPasswordConfirm.form-control(type='text' placeholder='Justification')
-                        label(for='inputJustification') Justification for Manual Alert
-                  .row.mb-3
-                        h4.w3-text-grey.text-center Alert Information
-                  .row.mb-3
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputPassword.form-control(type='text' placeholder='Vehicle Make')
-                        label(for='inputVehicleMake') Vehicle Make
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputPassword.form-control(type='text' placeholder='Vehicle Model')
-                        label(for='inputVehicleModel') Vehicle Model
-                  .row.mb-3
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputPassword.form-control(type='text' placeholder='Vehicle Year')
-                        label(for='inputVehicleYear') Vehicle Year
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputPassword.form-control(type='text' placeholder='Vehicle Color')
-                        label(for='inputVehicleColor') Vehicle Color
-                  .row.mb-3
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputPassword.form-control(type='text' placeholder='License Plate')
-                        label(for='inputLicensePlate') License Plate
-                    .col-md-6
-                      .form-floating.mb-3.mb-md-0
-                        input#inputPassword.form-control(type='text' placeholder='Other')
-                        label(for='inputOtherDescription') Other Descriptions
-                  .mt-4.mb-0
-                    .d-grid
-                      a.btn.btn-primary.btn-block(href='#') Issue Alert
-script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' crossorigin='anonymous')
-script(src='js/scripts.js')
-script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js' crossorigin='anonymous')
-script(src='assets/demo/chart-area-demo.js')
-script(src='assets/demo/chart-bar-demo.js')
-script(src='https://cdn.jsdelivr.net/npm/simple-datatables@latest' crossorigin='anonymous')
-script(src='js/datatables-simple-demo.js')
+extends ../layouts/dashboard.pug
+
+block config
+    - var bodyClass = 'sb-nav-fixed'
+    - var pageTitle = 'Map View';
+    - var index = false;
+    - var sidenavStyle = 'sb-sidenav-dark'
+    
+prepend css
+    //- Load Simple DataTables Stylesheet
+    link(href='https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css', rel='stylesheet')
+    link( rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css",integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==",crossorigin="") 
+    script( src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js", integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==", crossorigin="")
+    script(src="https://code.jquery.com/jquery-3.6.0.min.js",integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=",crossorigin="anonymous")
+    script.
+      async function issueAlert(){
+        alertData = {
+          alert_status:1,
+          city:$('#inputCity').val(),
+          alert_state:$('#inputState').val(),
+          license_plate:$('#inputLicensePlate').val(),
+          make:$('#inputVehicleMake').val(),
+          model:$('#inputVehicleModel').val(),
+          vehicle_year:$('#inputVehicleYear').val(),
+          color:$('#inputVehicleColor').val()
+        }
+        console.log(alertData)
+        await addAlert(alertData)
+      }
+block content
+  main
+    .container-fluid.px-4
+      h1.mt-4 Manual Alerts
+      ol.breadcrumb.mb-4
+        li.breadcrumb-item.active Issue manual Electri alerts to begin seeking a vehicle
+      .row
+      .container
+      .row.justify-content-center
+        .col-lg-10
+          .card.shadow-lg.border-0.rounded-lg.mt-5
+            .card-header
+              //- h3.text-center.font-weight-light.my-4 Issue Custom Alert
+              p.w3-text-grey
+              | All manual alerts must be issued by verified users with approval from Electri and its affiliated law enforcement agencies. Upon approval, alerts will be distributed to users. 
+            .card-body
+              form#alertForm
+                h4.w3-text-grey.text-center Alert Information
+                .row.mb-3
+                  .col-md-6
+                    .form-floating.mb-3.mb-md-0
+                      input#inputCity.form-control(type='text' placeholder='City')
+                      label(for='inputCity') City
+                    .form-floating.mb-3.mb-md-0
+                      input#inputState.form-control(type='text' placeholder='State')
+                      label(for='inputVehicleMake') State
+                .row.mb-3
+                  .col-md-6
+                    .form-floating.mb-3.mb-md-0
+                      input#inputVehicleMake.form-control(type='text' placeholder='Vehicle Make')
+                      label(for='inputVehicleMake') Vehicle Make
+                  .col-md-6
+                    .form-floating.mb-3.mb-md-0
+                      input#inputVehicleModel.form-control(type='text' placeholder='Vehicle Model')
+                      label(for='inputVehicleModel') Vehicle Model
+                .row.mb-3
+                  .col-md-6
+                    .form-floating.mb-3.mb-md-0
+                      input#inputVehicleYear.form-control(type='number' placeholder='Vehicle Year')
+                      label(for='inputVehicleYear') Vehicle Year
+                  .col-md-6
+                    .form-floating.mb-3.mb-md-0
+                      input#inputVehicleColor.form-control(type='text' placeholder='Vehicle Color')
+                      label(for='inputVehicleColor') Vehicle Color
+                .row.mb-3
+                  .col-md-6
+                    .form-floating.mb-3.mb-md-0
+                      input#inputLicensePlate.form-control(type='text' placeholder='License Plate')
+                      label(for='inputLicensePlate') License Plate
+                .mt-4.mb-0
+                  .d-grid
+                    a.btn.btn-primary.btn-block(onclick='issueAlert()') Issue Alert
+  script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' crossorigin='anonymous')
+  script(src='js/scripts.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js' crossorigin='anonymous')
+  script(src='assets/demo/chart-area-demo.js')
+  script(src='assets/demo/chart-bar-demo.js')
+  script(src='https://cdn.jsdelivr.net/npm/simple-datatables@latest' crossorigin='anonymous')
+  script(src='js/datatables-simple-demo.js')
