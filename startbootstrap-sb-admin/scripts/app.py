@@ -37,6 +37,7 @@ def get_matches_current():
     alerts = data.get('alerts')
     results = None
     if alerts:
+        print('getting alerts %s' % str(alerts))
         results = rds_data.execute_statement(
             resourceArn = ARN,
             secretArn = SECRET_ARN,
@@ -61,8 +62,7 @@ def get_matches_current():
                 JOIN image_info ON matches.img_id = image_info.id 
                 WHERE alerts.alert_status = 1;
             """
-        )
-        
+        ) 
     return {
         "code": 200,
         "message": "OK",
@@ -125,6 +125,7 @@ def insert_alert():
     color_rgb = str({
         "color":list(name_to_rgb(data.get("color")))
     })
+    color_rgb = color_rgb.replace('\'','\"')
     results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,

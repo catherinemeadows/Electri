@@ -1,16 +1,23 @@
 import boto3
 from decimal import Decimal
 import time
-path ='cars/car5.jpg'
+import json
+import random
+import string
+path ='images/car5.jpg'
 region = 'us-east-1'
 client = boto3.client('s3', region_name=region)
-dynamodb = boto3.resource('dynamodb', region_name=region)
-print(Decimal(int(time.time())))
-table = dynamodb.Table('Input_Packets')
-response = table.put_item(
-    Item={
-        'img_path': path,
-        'timestamp': Decimal(int(time.time()))
-    }
+client.upload_file(path, 'electri-image-uploads', path)
+client = boto3.client('stepfunctions')
+exec_name = ''.join(random.choice(string.ascii_lowercase) for i in range(40))
+response = client.start_execution(
+    stateMachineArn='arn:aws:states:us-east-1:497100321969:stateMachine:Electri-ProcessImageUploadWorkflow',
+    input= """{
+    "latitude":38.9005,
+    "longitude":-77.4123,
+    "img_path":"images/c5.jpg",
+    "execution_name": \"%s\"
+    }""" % exec_name
 )
-client.upload_file(path, 'senior-design-images', path)
+
+
