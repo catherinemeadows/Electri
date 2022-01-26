@@ -61,6 +61,50 @@ block content
         |                                 Alert Archives
       .card-body
         table#datatablesSimple
+          script. 
+            getAlerts().then(data => {
+              console.log(data)
+              table = document.getElementById("alertsTable");
+
+              data['alerts'].forEach(element => {
+                console.log(element)
+                  row = document.createElement("tr")
+                    d1 = document.createElement("td")
+                    d1.innerHTML = element[0]
+                    d2 = document.createElement("td")
+                    d2.innerHTML = element[1]
+                    d3 = document.createElement("td")
+                    d3.innerHTML = element[2]
+                    d4 = document.createElement("td")
+                    d4.innerHTML = element[3]
+                    d5 = document.createElement("td")
+                    d5.innerHTML = element[4]
+                    d6 = document.createElement("td")
+                    d6.innerHTML = element[5]
+                    d7 = document.createElement("td")
+                    d7.innerHTML = element[6]
+                    d8 = document.createElement("td")
+                    d8div = document.createElement("div")
+                    d8div.style = 'text-align: center'
+                    dot = document.createElement("span")
+                    if (element[7] ==1){
+                      dot.class = 'greendot'
+                    }else{
+                      dot.class = 'yellowdot'
+                    }
+                    d8div.appendChild(dot)
+                    d8.appendChild(d8div)
+                    row.appendChild(d1)
+                    row.appendChild(d2)
+                    row.appendChild(d3)
+                    row.appendChild(d4)
+                    row.appendChild(d5)
+                    row.appendChild(d6)
+                    row.appendChild(d7)
+                    row.appendChild(d8)
+                  table.appendChild(row)
+              });
+            })
           thead
             tr
               th Alert ID
@@ -81,7 +125,7 @@ block content
               th LIC
               th Description
               th Status
-          tbody
+          tbody#alertsTable
             tr
               td A36748901
               td 22 OCT 2021, 14:15:09

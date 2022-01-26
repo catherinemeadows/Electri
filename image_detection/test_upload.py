@@ -4,7 +4,7 @@ import time
 import json
 import random
 import string
-path ='images/car5.jpg'
+path ='images/c6.jpg'
 region = 'us-east-1'
 client = boto3.client('s3', region_name=region)
 client.upload_file(path, 'electri-image-uploads', path)
@@ -15,7 +15,7 @@ response = client.start_execution(
     input= """{
     "latitude":38.9005,
     "longitude":-77.4123,
-    "img_path":"images/c5.jpg",
+    "img_path":"images/c6.jpg",
     "execution_name": \"%s\"
     }""" % exec_name
 )

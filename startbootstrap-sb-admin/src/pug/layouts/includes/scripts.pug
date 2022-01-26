@@ -6,15 +6,11 @@ block scripts
     script(src='js/common.js')
     script. 
         window.addEventListener('load', (event) => {
-            console.log("windowloaded")
-            console.log(localStorage)
             if(localStorage.getItem('token') == null){
                 window.location.pathname = "/login.html"                 
             }
-            console.log("token found")
             sendRequest('/verifyLogin', {token: localStorage.getItem('token')}).then( ok =>{
                 if (!ok) {
-                    console.log("bad token")
                     localStorage.removeItem('token');
                     window.location.pathname = "/login.html"    
                 }

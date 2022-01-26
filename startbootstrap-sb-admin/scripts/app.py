@@ -125,7 +125,7 @@ def insert_alert():
     color_rgb = str({
         "color":list(name_to_rgb(data.get("color")))
     })
-    color_rgb = color_rgb.replace('\'','\"')
+    color_rgb = color_rgb.replace('\'','\\\"')
     results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
@@ -162,7 +162,7 @@ def insert_alert():
 @app.route('/getAlerts', methods=['POST'])
 def get_alerts():
     ok, msg = checkLogin()
-    data = json.loads(request.get_data())
+    data = {}#json.loads(request.get_data())
     if not ok:
         return {
             "Code":500,
@@ -174,21 +174,25 @@ def get_alerts():
         resourceArn = ARN,
         secretArn = SECRET_ARN,
         database = DBNAME,
-        sql ="""SELECT * FROM alerts WHERE alert_status = %s;""" % (data['alert_status']))
+        sql ="""SELECT alerts.id, alerts.timestamp, alerts.alert_state,alerts.make,alerts.model,alerts.license_plate,alerts.color,alerts.alert_status FROM alerts WHERE alert_status = %s;""" % (data['alert_status']))
     else:
         results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
         database = DBNAME,
-        sql ="""SELECT * FROM alerts;""" )
+        sql ="""SELECT alerts.id, alerts.timestamp, alerts.alert_state, alerts.make, alerts.model, alerts.license_plate, alerts.color, alerts.alert_status FROM alerts;""" )
     alerts = {
         'alerts':[]
     }
     for record in results['records']:
         alert = []
         for col in record:
-            alert.append(col[list(col.keys())[0]])
+            row_data = col[list(col.keys())[0]]
+            if type(row_data) == bytes: 
+                row_data = str(row_data)
+            alert.append(row_data)
         alerts['alerts'].append(alert)
+    print(alerts)
     return {
         "code": 200,
         "message": "OK",
