@@ -7,6 +7,24 @@ block config
     - var sidenavStyle = 'sb-sidenav-dark'
 
 block content
+  style.
+    .dataTables-empty { 
+      display:none;
+    }
+    .yellowdot {
+      height: 15px;
+      width: 15px;
+      background-color: #FFFF00;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .greendot {
+      height: 15px;
+      width: 15px;
+      background-color: #00FF00;
+      border-radius: 50%;
+      display: inline-block;
+    }
   .container-fluid.px-4
     h1.mt-4 Dashboard
     ol.breadcrumb.mb-4
@@ -88,9 +106,9 @@ block content
                     d8div.style = 'text-align: center'
                     dot = document.createElement("span")
                     if (element[7] ==1){
-                      dot.class = 'greendot'
+                      dot.classList.add("greendot");
                     }else{
-                      dot.class = 'yellowdot'
+                      dot.classList.add("yellowdot");
                     }
                     d8div.appendChild(dot)
                     d8.appendChild(d8div)
@@ -126,61 +144,7 @@ block content
               th Description
               th Status
           tbody#alertsTable
-            tr
-              td A36748901
-              td 22 OCT 2021, 14:15:09
-              td San Francisco, CA
-              td Toyota
-              td Corolla
-              td Black
-              td 4SEY238
-              td
-                div(style='text-align: center')
-                  span.yellowdot
-            tr
-              td A36748900
-              td 22 OCT 2021, 12:08:17
-              td Cincinnati, Ohio
-              td Honda
-              td --
-              td Dark
-              td 8GED124
-              td
-                div(style='text-align: center')
-                  span.yellowdot
-            tr
-              td A36748899
-              td 20 OCT 2021, 09:20:36
-              td San Diego, CA
-              td Toyota
-              td Camry
-              td Tan
-              td --
-              td
-                div(style='text-align: center')
-                  span.greendot
-            tr
-              td A36748888
-              td 29 SEPT 2021, 23:15:54
-              td Memphis, TN
-              td Kia
-              td Soul
-              td Green
-              td 7TRN768
-              td
-                div(style='text-align: center')
-                  span.yellowdot
-            tr
-              td A36748887
-              td 25 SEPT 2021, 14:09:43
-              td Portland, Maine
-              td Ford
-              td Fiat
-              td Red
-              td --
-              td
-                div(style='text-align: center')
-                  span.reddot
+            
   script(src='https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js' crossorigin='anonymous')
   script(src='js/scripts.js')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js' crossorigin='anonymous')
