@@ -1,0 +1,48 @@
+link(type="css" rel="stylesheet" href="../../pages/map_css.css")
+nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
+  // Sidebar Toggle
+  button#sidebarToggle.btn.btn-link.btn-sm.order-2.order-lg-0.me-4.me-lg-0(href='#!')
+    i.fas.fa-bars
+  a.navbar-brand.ps-3(href='dashboard.html') Map View
+  // Navbar Search
+  .dropdown.ms-auto.me-0.me-md-3.my-2.my-md-0
+        button.dropbtn(onclick='myFunction()') Filter Alert
+        #myDropdown.dropdown-content
+            input#myInput(type='text' placeholder='Search by Alert ID' onkeyup='filterFunction()')
+            a(href='#about') 00000001
+            a(href='#base') 00000002
+            a(href='#blog') 00000003
+            a(href='#contact') 00000004
+            a(href='#custom') 00000005
+  // Navbar
+  ul.navbar-nav.ms-auto.ms-md-0.me-3.me-lg-4
+    li.nav-item.dropdown
+      a#navbarDropdown.nav-link.dropdown-toggle(href='#' role='button' data-bs-toggle='dropdown' aria-expanded='false')
+        i.fas.fa-user.fa-fw
+      ul.dropdown-menu.dropdown-menu-end(aria-labelledby='navbarDropdown')
+        // <li><a class="dropdown-item" href="#!">Settings</a></li>
+        // <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+        // <li><hr class="dropdown-divider" /></li>
+        li
+          a.dropdown-item.logoutButton(onclick="logout()") Logout
+
+//- script. 
+//-         function myFunction() {
+//-             document.getElementById("myDropdown").classList.toggle("show");
+//-         }
+
+//-         function filterFunction() {
+//-             var input, filter, ul, li, a, i;
+//-             input = document.getElementById("myInput");
+//-             filter = input.value.toUpperCase();
+//-             div = document.getElementById("myDropdown");
+//-             a = div.getElementsByTagName("a");
+//-             for (i = 0; i < a.length; i++) {
+//-                 txtValue = a[i].textContent || a[i].innerText;
+//-                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
+//-                 a[i].style.display = "";
+//-                 } else {
+//-                 a[i].style.display = "none";
+//-                 }
+//-             }
+//-         }
