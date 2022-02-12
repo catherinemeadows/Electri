@@ -29,7 +29,7 @@ async function getCurrentMatches(alert_filters){
 }
 
 async function getAlerts(){
-  data = await sendRequest('/getAlerts', {'alerts':alert_filters}) 
+  data = await sendRequest('/getAlerts',{}) 
   return data
 }
 async function addAlert(alertData){ 

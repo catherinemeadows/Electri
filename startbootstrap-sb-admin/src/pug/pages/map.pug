@@ -44,6 +44,7 @@ block content
         function getData(){
             
             getCurrentMatches(alertFilters).then(data => {
+                console.log(data)
                 for (var i = 0; i < data.length; i++) {
                     if (!matches.includes(data[i].id)){
                         var marker = L.marker(

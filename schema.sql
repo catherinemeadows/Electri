@@ -48,8 +48,8 @@ CREATE TABLE image_info (
 );
 
 CREATE TABLE matches (
-    match_id varchar(128) not null,
-    img_id int(8) not null,
+    match_id int(8) not null auto_increment,
+    img_id varchar(128) not null,
     alert_id int(8) not null,
     FOREIGN KEY (img_id) REFERENCES image_info(id),
     FOREIGN KEY (alert_id) REFERENCES alerts(id),

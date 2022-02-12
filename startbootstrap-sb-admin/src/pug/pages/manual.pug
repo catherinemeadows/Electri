@@ -24,8 +24,8 @@ prepend css
           vehicle_year:$('#inputVehicleYear').val(),
           color:$('#inputVehicleColor').val()
         }
-        console.log(alertData)
         await addAlert(alertData)
+        alert("Alert Added!")
       }
 block content
   main
@@ -50,6 +50,7 @@ block content
                     .form-floating.mb-3.mb-md-0
                       input#inputCity.form-control(type='text' placeholder='City')
                       label(for='inputCity') City
+                  .col-md-6
                     .form-floating.mb-3.mb-md-0
                       input#inputState.form-control(type='text' placeholder='State')
                       label(for='inputVehicleMake') State
