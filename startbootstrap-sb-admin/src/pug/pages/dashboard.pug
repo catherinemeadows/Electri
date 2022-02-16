@@ -11,61 +11,54 @@ block content
     .dataTables-empty { 
       display:none;
     }
-    .yellowdot {
-      height: 15px;
-      width: 15px;
-      background-color: #FFFF00;
-      border-radius: 50%;
-      display: inline-block;
-    }
     .greendot {
       height: 15px;
       width: 15px;
-      background-color: #00FF00;
+      background-color: #15c221;
       border-radius: 50%;
       display: inline-block;
     }
-  .container-fluid.px-4
-    h1.mt-4 Dashboard
-    ol.breadcrumb.mb-4
-      li.breadcrumb-item.active Admin Dashboard
-    .row
-      .col-xl-6
-        .card.mb-4
-          .card-header
-            i.fas.fa-chart-area.me-1
-            |                                         Issued AMBER Alerts (United States)
-          .card-body
-            canvas#myAreaChart(width='100%' height='40')
-      .col-xl-6
-        .card.mb-4
-          .card-header
-            i.fas.fa-chart-bar.me-1
-            |                                         Electri-Assisted Cases
-          .card-body
-            canvas#myBarChart(width='100%' height='40')
-    .row
-      .col-xl-3.col-md-6
-        .card.bg-primary.text-white.mb-4
-          .card-body Electri "Opt-In" Users: 234
-          .card-footer.d-flex.align-items-center.justify-content-between
-            a.small.text-white.stretched-link(href='#') View Details
-            .small.text-white
-              i.fas.fa-angle-right
-      .col-xl-3.col-md-6
-        .card.bg-warning.text-white.mb-4
-          .card-body Case Status: Active
-          .card-footer.d-flex.align-items-center.justify-content-between
-            a.small.text-white.stretched-link(href='#') View All
-            .small.text-white
-              i.fas.fa-angle-right
-      .col-xl-3.col-md-6
-        .card.bg-danger.text-white.mb-4
-          .card-body Case Status: Inactive
-          .card-footer.d-flex.align-items-center.justify-content-between
-            a.small.text-white.stretched-link(href='#') View All
-            .small.text-white
-              i.fas.fa-angle-right
+    .reddot {
+      height: 15px;
+      width: 15px;
+      background-color: #db0f0f;
+      border-radius: 50%;
+      display: inline-block;
+    }
+  .row
+    .col-xl-9
+      .container-fluid.px-4
+        h1.mt-4 Dashboard
+        ol.breadcrumb.mb-4
+          li.breadcrumb-item.active Admin Dashboard
+    .col-xl-3
+      .container-fluid.px-8
+        .card.bg-primary.text-white.mb-2.mt-5
+          .card-body Current Electri Users: 234
+    .container
+      .row
+        .col-xl-6
+          .card.mb-4
+            .card-header
+              i.fas.fa-chart-area.me-1
+              |                                         Issued AMBER Alerts (United States)
+            .card-body
+              canvas#myAreaChart(width='100%' height='40')
+        .col-xl-6
+          .card.mb-4
+            .card-header
+              i.fas.fa-chart-bar.me-1
+              |                                         Electri-Assisted Cases
+            .card-body
+              canvas#myBarChart(width='100%' height='40')
+    .container-fluid.px-4
+      .row
+        .col-xl-3.col-md-7
+          .card.bg-success.text-white.mb-4
+            .card-body Case Status: Active
+        .col-xl-3.col-md-7
+          .card.bg-danger.text-white.mb-4
+            .card-body Case Status: Inactive
     .card.mb-4
       .card-header
         i.fas.fa-table.me-1
@@ -101,7 +94,7 @@ block content
                     if (element[7] ==1){
                       dot.classList.add("greendot");
                     }else{
-                      dot.classList.add("yellowdot");
+                      dot.classList.add("reddot");
                     }
                     d8div.appendChild(dot)
                     d8.appendChild(d8div)

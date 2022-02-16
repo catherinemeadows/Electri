@@ -1,4 +1,23 @@
 doctype html
+block content
+  style.
+    .dataTables-empty { 
+      display:none;
+    }
+    .greendot {
+      height: 15px;
+      width: 15px;
+      background-color: #15c221;
+      border-radius: 50%;
+      display: inline-block;
+    }
+    .reddot {
+      height: 15px;
+      width: 15px;
+      background-color: #db0f0f;
+      border-radius: 50%;
+      display: inline-block;
+    }
 head
   meta(charset='utf-8')
   meta(http-equiv='X-UA-Compatible' content='IE=edge')
@@ -58,9 +77,6 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
             .sb-nav-link-icon
               i.fas.fa-home
             |                                 Logout
-      .sb-sidenav-footer
-        .small Logged in as:
-        |                         Start Bootstrap
   #layoutSidenav_content
     main
       .container-fluid.px-4
@@ -69,33 +85,11 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
           li.breadcrumb-item.active Electri Database
         .row
           .col-xl-3.col-md-6
-            .card.bg-primary.text-white.mb-4
-              .card-body Connected Electri Cams: 234
-              .card-footer.d-flex.align-items-center.justify-content-between
-                a.small.text-white.stretched-link(href='#') View Details
-                .small.text-white
-                  i.fas.fa-angle-right
-          .col-xl-3.col-md-6
-            .card.bg-warning.text-white.mb-4
-              .card-body Case Status: Actively Seeking
-              .card-footer.d-flex.align-items-center.justify-content-between
-                a.small.text-white.stretched-link(href='#') View All
-                .small.text-white
-                  i.fas.fa-angle-right
-          .col-xl-3.col-md-6
             .card.bg-success.text-white.mb-4
-              .card-body Case Status: Solved, Inactive
-              .card-footer.d-flex.align-items-center.justify-content-between
-                a.small.text-white.stretched-link(href='#') View All
-                .small.text-white
-                  i.fas.fa-angle-right
+              .card-body Case Status: Active
           .col-xl-3.col-md-6
             .card.bg-danger.text-white.mb-4
-              .card-body Case Status: Unsolved, Inactive
-              .card-footer.d-flex.align-items-center.justify-content-between
-                a.small.text-white.stretched-link(href='#') View All
-                .small.text-white
-                  i.fas.fa-angle-right
+              .card-body Case Status: Inactive
         .card.mb-4
           .card-header
             i.fas.fa-table.me-1
@@ -133,7 +127,7 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
                   td 4SEY238
                   td
                     div(style='text-align: center')
-                      span.yellowdot
+                      span.greendot
                 tr
                   td A36748900
                   td 22 OCT 2021, 12:08:17
@@ -144,7 +138,7 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
                   td 8GED124
                   td
                     div(style='text-align: center')
-                      span.yellowdot
+                      span.greendot
                 tr
                   td A36748899
                   td 20 OCT 2021, 09:20:36
@@ -155,7 +149,7 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
                   td --
                   td
                     div(style='text-align: center')
-                      span.greendot
+                      span.reddot
                 tr
                   td A36748888
                   td 29 SEPT 2021, 23:15:54
@@ -166,7 +160,7 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
                   td 7TRN768
                   td
                     div(style='text-align: center')
-                      span.yellowdot
+                      span.greendot
                 tr
                   td A36748887
                   td 25 SEPT 2021, 14:09:43
