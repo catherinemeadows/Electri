@@ -43,7 +43,7 @@ def get_matches_current():
             secretArn = SECRET_ARN,
             database = DBNAME,
             sql ="""
-                SELECT alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
+                SELECT image_info.id,alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
                 FROM alerts 
                 JOIN matches ON matches.alert_id = alerts.id 
                 JOIN image_info ON matches.img_id = image_info.id 
@@ -56,7 +56,7 @@ def get_matches_current():
             secretArn = SECRET_ARN,
             database = DBNAME,
             sql ="""
-                SELECT alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
+                SELECT image_info.id,alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
                 FROM alerts 
                 JOIN matches ON matches.alert_id = alerts.id 
                 JOIN image_info ON matches.img_id = image_info.id 
@@ -86,7 +86,7 @@ def get_matches_archived():
         secretArn = SECRET_ARN,
         database = DBNAME,
         sql ="""
-            SELECT alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
+            SELECT image_info.id, alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
             FROM alerts 
             JOIN matches ON matches.alert_id = alerts.id 
             JOIN image_info ON matches.img_id = image_info.id 
@@ -100,7 +100,7 @@ def get_matches_archived():
         secretArn = SECRET_ARN,
         database = DBNAME,
         sql ="""
-            SELECT alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
+            SELECT image_info.id, alerts.id,image_info.img_path,image_info.latitude,image_info.longitude 
             FROM alerts 
             JOIN matches ON matches.alert_id = alerts.id 
             JOIN image_info ON matches.img_id = image_info.id;
@@ -303,13 +303,15 @@ def download_image_if_needed(img_path):
 def parseMatches(records): 
     matches = []
     for record in records:
+        print(record)
         match_data = {
-            "alert_id": record[0]['longValue'],
-            "img_path": record[1]['stringValue'],
-            "latitude": float(record[2]['stringValue']),
-            "longitude": float(record[3]['stringValue'])
+            "id":record[0]['stringValue'],
+            "alert_id": record[1]['longValue'],
+            "img_path": record[2]['stringValue'],
+            "latitude": float(record[3]['stringValue']),
+            "longitude": float(record[4]['stringValue'])
         }
-        download_image_if_needed(record[1]['stringValue'])
+        download_image_if_needed(record[2]['stringValue'])
         matches.append(match_data)
     return matches
 

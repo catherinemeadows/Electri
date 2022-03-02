@@ -39,6 +39,11 @@ block content
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoibmJ1cnkiLCJhIjoiY2t2cmk5cWZvNGdveDJ0bnU4N2k2eHl4NSJ9.nfPDUZJDa1wPD2v5LhF8qg',
         }).addTo(mymap);
+        var circle = L.circle([38.900303, -77.047602], {
+            fillColor: '#0000ff',
+            fillOpacity: 0.2,
+            radius: 2000
+        }).addTo(mymap);
         var matches = []
         alertFilters = []
         function getData(){
