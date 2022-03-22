@@ -24,18 +24,13 @@ def handler(event, context):
     s3 = boto3.client('s3')
     path = event['preprocessed_image_path']
     print('Downloading image')
-    
-    results = []
-        s3.download_file('electri-image-uploads',path, '/tmp/img_foreground.png')
+    s3.download_file('electri-image-uploads',path, '/tmp/img_foreground.png')
     bgr_img = cv.imread('/tmp/img_foreground.png')
     bgr_img = cv.resize(bgr_img, (img_width, img_height), cv.INTER_CUBIC)
     rgb_img = cv.cvtColor(bgr_img, cv.COLOR_BGR2RGB)
     rgb_img = np.expand_dims(rgb_img, 0)
     preds = model.predict(rgb_img)
-    prob = np.max(preds)
     class_id = np.argmax(preds)
-    text = ('Predict: {}, prob: {}'.format(class_names[class_id][0][0], prob))
-    results.append({'label': class_names[class_id][0][0], 'prob': '{:.4}'.format(prob)})
-
+    make,model = class_names[class_id][0][0].split(' ',1)
     K.clear_session()
-    return json.dumps(results, indent=4)
+    return {'make': make,"model":model}
