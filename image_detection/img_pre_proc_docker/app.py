@@ -97,14 +97,14 @@ def handler(event, context):
   path = event['img_path']
   execution_name = event['execution_name']
   s3.download_file('electri-image-uploads',path, '/tmp/img.png')
-  print("Segmenting background")
+  print("Segmenting background") 
   foreground = segment('/tmp/img.png')
   print('saving foreground image')
   plt.axis('off')
   plt.imshow(foreground)
   plt.savefig('/tmp/img_foreground.png', bbox_inches='tight')
-  print("Removing background")
-  upload_path = 'preprocessed-images/'+execution_name+'.png'
+  print("Removing background") 
+  upload_path = '/preprocessed-images/'+execution_name+'.png'
   s3.upload_file('/tmp/img_foreground.png', 'electri-image-uploads', upload_path)
   event['preprocessed_image_path'] = upload_path
   return event
