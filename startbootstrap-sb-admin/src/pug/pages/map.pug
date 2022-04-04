@@ -39,10 +39,10 @@ block content
         zoomOffset: -1,
         accessToken: 'pk.eyJ1IjoibmJ1cnkiLCJhIjoiY2t2cmk5cWZvNGdveDJ0bnU4N2k2eHl4NSJ9.nfPDUZJDa1wPD2v5LhF8qg',
         }).addTo(mymap);
-        var circle = L.circle([38.900303, -77.047602], {
+        var circle = L.circle([0, 0], {
             fillColor: '#0000ff',
             fillOpacity: 0.2,
-            radius: 2000
+            radius:1
         }).addTo(mymap);
         var matches = []
         alertFilters = []
@@ -54,11 +54,16 @@ block content
                     if (!matches.includes(data[i].id)){
                         var marker = L.marker(
                             L.latLng(parseFloat(data[i].latitude), parseFloat(data[i].longitude))
-                        ).addTo(mymap).bindPopup("<img width=\"150\" src=\"assets/"+data[i].img_path+"\" /> <br/>"+timeConverter(Date.now()));
+                         ).addTo(mymap).bindPopup("<img width=\"150\" src=\"assets/"+data[i].img_path+"\" /> <br/>"+timeConverter(Date.now()));
                         
                         matches.push(data[i].id)
                     }
                 }
+                
+                circleData = getCircle(data)
+                console.log(circleData )
+                circle.setRadius(circleData.radius)
+                circle.setLatLng(L.latLng(circleData.latitude, circleData.longitude))
             })
         };
         setInterval(getData,1000)

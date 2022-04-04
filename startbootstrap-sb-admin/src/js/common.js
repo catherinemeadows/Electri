@@ -48,3 +48,24 @@ async function getMatchesByAlertId(){
 async function getAllMatches(){
 
 }
+
+function getCircle(matches){
+  var circleData = {'longitude':0, 'latitude':0,'radius':0}
+  for (var i = 0; i < matches.length; i++) {
+    circleData.longitude += matches[i].longitude
+    circleData.latitude += matches[i].latitude
+  } 
+  circleData.longitude /= matches.length
+  circleData.latitude /= matches.length
+
+  // calculate radius 
+  var max_distance = 0
+  for (var i = 0; i < matches.length; i++) {
+    var distance = Math.sqrt(Math.pow(circleData.longitude - matches[i].longitude,2) + Math.pow(circleData.latitude - matches[i].latitude,2))
+    if (distance > max_distance) {
+      max_distance = distance
+    }
+  }
+  circleData.radius = max_distance * 111000
+  return circleData
+}
