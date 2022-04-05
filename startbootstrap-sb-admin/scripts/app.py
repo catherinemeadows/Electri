@@ -269,12 +269,6 @@ def logout():
 @app.route('/register', methods=['POST'])
 def register():
     data = json.loads(request.get_data())
-    ok, msg = checkLogin()
-    if not ok:
-        return {
-            "Code":500,
-            "message":msg
-        }
     results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
