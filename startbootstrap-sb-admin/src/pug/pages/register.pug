@@ -12,25 +12,27 @@ head
   title Register - SB Admin
   link(href='css/styles.css' rel='stylesheet')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
-  script.
-    async function register(){
-      userData = {
-        username:$('#inputEmail').val(),
-        user_password:$('#inputCity').val(),
-        fname:$('#inputFirstName').val(),
-        lname:$('#inputLastName').val(),
-        email:$('#inputEmail').val(),
-        organization:$('#inputOrganization').val(),
-        is_verified:0
-      }
-      await registerUser(userData)
-      alert("Your request for account registration was submitted.")
-      window.location.reload()
-    }
 
 style.
   body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+script(src='../js/common.js')
+script.
+  async function register(){
+    userData = {
+      username: document.getElementById("inputEmail").value,
+      user_password: document.getElementById("inputPassword").value,
+      fname: document.getElementById("inputFirstName").value,
+      lname: document.getElementById("inputLastName").value,
+      email: document.getElementById("inputEmail").value,
+      organization: document.getElementById("inputOrganization").value,
+      is_verified: 0
+    }
+    await sendRequest('/register', userData)
+    alert("Your request for account registration was submitted.")
+    window.location.reload()
+  }
+
 // Navbar
 .w3-top
   .w3-bar.w3-blue.w3-card.w3-left-align.w3-large

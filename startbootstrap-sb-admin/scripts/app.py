@@ -274,7 +274,7 @@ def register():
         secretArn = SECRET_ARN,
         database = DBNAME,
         sql=
-        """INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s, %s);""" % 
+        """INSERT INTO user VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');""" % 
         (
             data.get('username'),
             data.get('user_password'),
