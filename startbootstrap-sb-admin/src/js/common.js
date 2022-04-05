@@ -38,7 +38,8 @@ async function addAlert(alertData){
 }
 
 async function registerUser(){
-
+  alert("here")
+  sendRequest('/register', userData)
 }
 
 async function getMatchesByAlertId(){

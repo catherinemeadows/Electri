@@ -12,6 +12,22 @@ head
   title Register - SB Admin
   link(href='css/styles.css' rel='stylesheet')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
+  script.
+    async function register(){
+      userData = {
+        username:$('#inputEmail').val(),
+        user_password:$('#inputCity').val(),
+        fname:$('#inputFirstName').val(),
+        lname:$('#inputLastName').val(),
+        email:$('#inputEmail').val(),
+        organization:$('#inputOrganization').val(),
+        is_verified:0
+      }
+      await registerUser(userData)
+      alert("Your request for account registration was submitted.")
+      window.location.reload()
+    }
+
 style.
   body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
@@ -65,7 +81,7 @@ style.
                         label(for='inputPasswordConfirm') Confirm Password
                   .mt-4.mb-0
                     .d-grid
-                      a.btn.btn-primary.btn-block(href='login.html') Request Account
+                      a.btn.btn-primary.btn-block(onclick="register()") Request Account
               .card-footer.text-center.py-3
                 .small
                   //- a(href='login.html') Have an account? Go to login

@@ -280,14 +280,15 @@ def register():
         secretArn = SECRET_ARN,
         database = DBNAME,
         sql=
-        """INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s);""" % 
+        """INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s, %s);""" % 
         (
             data.get('username'),
             data.get('user_password'),
             data.get('fname'),
             data.get('lname'),
             data.get('email'),
-            data.get('organization')
+            data.get('organization'),
+            data.get('is_verified')
         )
     )
     return {
