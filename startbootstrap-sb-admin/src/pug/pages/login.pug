@@ -30,7 +30,8 @@ script.
     }
     const data = await sendRequest('/login', body)
     if (data != null) {
-      localStorage['token'] = data
+      localStorage['token'] = data.token
+      localStorage['name'] = data.name
       window.location.pathname = "/dashboard.html"
     } else {
       alert("Invalid credentials!")

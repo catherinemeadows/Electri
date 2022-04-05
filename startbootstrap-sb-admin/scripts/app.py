@@ -240,7 +240,10 @@ def login():
     return {
         "code":200,
         "message":"OK",
-        "data": token
+        "data": {
+            "token": token,
+            "name":results['records'][0][2]['stringValue']+' '+results['records'][0][3]['stringValue']
+        }
     }
     
 @app.route('/logout', methods=['POST'])
