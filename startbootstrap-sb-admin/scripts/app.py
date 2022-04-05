@@ -215,8 +215,6 @@ def login():
     username = data['username']
     password = data['password']
     if not username or not password:
-        print(username, password)
-        print("nope")
         return {
             "code": 400,
             "message": "Check Input"
@@ -228,7 +226,6 @@ def login():
         database = DBNAME,
         sql =sql_statement)
     if len(results['records']) != 1:
-        print("oops")
         return {
             "Code":200,
             "Message":"Invalid Login"

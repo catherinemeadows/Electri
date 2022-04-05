@@ -29,8 +29,12 @@ script.
       password:password
     }
     const data = await sendRequest('/login', body)
-    localStorage['token'] = data
-    window.location.pathname = "/dashboard.html"
+    if (data != null) {
+      localStorage['token'] = data
+      window.location.pathname = "/dashboard.html"
+    } else {
+      alert("Invalid credentials!")
+    }
   }
 
 // Navbar
