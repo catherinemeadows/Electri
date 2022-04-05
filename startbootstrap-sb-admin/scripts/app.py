@@ -221,7 +221,7 @@ def login():
             "code": 400,
             "message": "Check Input"
         }
-    sql_statement = """SELECT * FROM user WHERE username = \"%s\" AND user_password = \"%s\";""" % (username,password)
+    sql_statement = """SELECT * FROM user WHERE username = \"%s\" AND user_password = \"%s\" AND is_verified = 1;""" % (username,password)
     results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
