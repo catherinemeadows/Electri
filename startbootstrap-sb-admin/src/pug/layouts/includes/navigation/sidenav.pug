@@ -22,4 +22,9 @@ nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
               i.fas.fa-home
             |                                 Logout
       .sb-sidenav-footer
+        .small Logged in as:
+        p(id="name")
+        script.
+          document.getElementById("name").innerHTML = localStorage.getItem('name')
+
         
