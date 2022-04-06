@@ -215,20 +215,17 @@ def login():
     username = data['username']
     password = data['password']
     if not username or not password:
-        print(username, password)
-        print("nope")
         return {
             "code": 400,
             "message": "Check Input"
         }
-    sql_statement = """SELECT * FROM user WHERE username = \"%s\" AND user_password = \"%s\";""" % (username,password)
+    sql_statement = """SELECT * FROM user WHERE username = \"%s\" AND user_password = \"%s\" AND is_verified = 1;""" % (username,password)
     results = rds_data.execute_statement(
         resourceArn = ARN,
         secretArn = SECRET_ARN,
         database = DBNAME,
         sql =sql_statement)
     if len(results['records']) != 1:
-        print("oops")
         return {
             "Code":200,
             "Message":"Invalid Login"
@@ -243,7 +240,10 @@ def login():
     return {
         "code":200,
         "message":"OK",
-        "data": token
+        "data": {
+            "token": token,
+            "name":results['records'][0][2]['stringValue']+' '+results['records'][0][3]['stringValue']
+        }
     }
     
 @app.route('/logout', methods=['POST'])
@@ -274,7 +274,7 @@ def register():
         secretArn = SECRET_ARN,
         database = DBNAME,
         sql=
-        """INSERT INTO users VALUES (%s,%s,%s,%s,%s,%s, %s);""" % 
+        """INSERT INTO user VALUES ('%s', '%s', '%s', '%s', '%s', '%s', '%s');""" % 
         (
             data.get('username'),
             data.get('user_password'),
