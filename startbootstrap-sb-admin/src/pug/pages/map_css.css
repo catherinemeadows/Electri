@@ -114,3 +114,8 @@
   
   .dropdown a:hover {background-color: #ddd;}
   .show {display: block;}
+
+  #form {
+    margin-left: 25em;
+    color: white;
+  }
