@@ -12,9 +12,27 @@ head
   title Register - SB Admin
   link(href='css/styles.css' rel='stylesheet')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js' crossorigin='anonymous')
+
 style.
   body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", sans-serif}
   .w3-bar,h1,button {font-family: "Montserrat", sans-serif}
+script(src='../js/common.js')
+script.
+  async function register(){
+    userData = {
+      username: document.getElementById("inputEmail").value,
+      user_password: document.getElementById("inputPassword").value,
+      fname: document.getElementById("inputFirstName").value,
+      lname: document.getElementById("inputLastName").value,
+      email: document.getElementById("inputEmail").value,
+      organization: document.getElementById("inputOrganization").value,
+      is_verified: 0
+    }
+    await sendRequest('/register', userData)
+    alert("Your request for account registration was submitted.")
+    window.location.reload()
+  }
+
 // Navbar
 .w3-top
   .w3-bar.w3-blue.w3-card.w3-left-align.w3-large
@@ -65,7 +83,7 @@ style.
                         label(for='inputPasswordConfirm') Confirm Password
                   .mt-4.mb-0
                     .d-grid
-                      a.btn.btn-primary.btn-block(href='login.html') Request Account
+                      a.btn.btn-primary.btn-block(onclick="register()") Request Account
               .card-footer.text-center.py-3
                 .small
                   //- a(href='login.html') Have an account? Go to login

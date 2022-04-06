@@ -15,7 +15,8 @@ CREATE TABLE user (
     fname varchar(32),
     lname varchar(32),
     email varchar(50),
-    organization varchar(50)
+    organization varchar(50),
+    is_verified int(1)
 );
 
 CREATE TABLE alerts (
@@ -58,7 +59,7 @@ CREATE TABLE matches (
 
 -- USERS
 insert into user(username, user_password, fname, lname, email, organization)
-values ("admin", "admin", "Admin", "User", "admin_fake@email.com", "DC MPD");
+values ("admin", "admin", "Admin", "User", "admin_fake@email.com", "DC MPD", 1);
 
 -- ALERTS
 -- alerts with matches in db: 

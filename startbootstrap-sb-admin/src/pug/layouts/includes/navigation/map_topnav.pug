@@ -4,7 +4,9 @@ nav.sb-topnav.navbar.navbar-expand.navbar-dark.bg-dark
   button#sidebarToggle.btn.btn-link.btn-sm.order-2.order-lg-0.me-4.me-lg-0(href='#!')
     i.fas.fa-bars
   a.navbar-brand.ps-3(href='dashboard.html') Map View
-  // Navbar Search
+  form#form
+    input#vehicle1(type='checkbox' name='checkbox' value='Bike')
+    label(for='checkbox')  Show radius of matches
   .dropdown.ms-auto.me-0.me-md-3.my-2.my-md-0
         button.dropbtn(onclick='myFunction()') Filter Alert
         #myDropdown.dropdown-content

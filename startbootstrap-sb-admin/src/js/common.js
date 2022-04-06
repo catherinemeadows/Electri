@@ -37,10 +37,6 @@ async function addAlert(alertData){
   data = await sendRequest('/insertAlert', alertData)
 }
 
-async function registerUser(){
-
-}
-
 async function getMatchesByAlertId(){
 
 }

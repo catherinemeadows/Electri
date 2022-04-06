@@ -23,5 +23,8 @@ nav#sidenavAccordion.sb-sidenav.accordion.sb-sidenav-dark
             |                                 Logout
       .sb-sidenav-footer
         .small Logged in as:
-        // TODO : pull username from database
-        | Start Bootstrap
+        p(id="name")
+        script.
+          document.getElementById("name").innerHTML = localStorage.getItem('name')
+
+        

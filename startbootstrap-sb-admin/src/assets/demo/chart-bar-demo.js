@@ -7,31 +7,31 @@ var ctx = document.getElementById("myBarChart");
 var myLineChart = new Chart(ctx, {
   type: 'bar',
   data: {
-    labels: ["January", "February", "March", "April", "May", "June"],
+    labels: ["<= 1", "1-3", "3-6", "6-12", "12-24", "24-48", "> 48"],
     datasets: [{
-      label: "Solved Cases",
+      label: "Hours",
       backgroundColor: "rgba(2,117,216,1)",
       borderColor: "rgba(2,117,216,1)",
-      data: [150, 57, 100, 80, 25, 89],
+      data: [2, 14, 34, 55, 28, 12, 13],
     }],
   },
   options: {
     scales: {
       xAxes: [{
         time: {
-          unit: 'month'
+          unit: 'hours'
         },
         gridLines: {
           display: false
         },
         ticks: {
-          maxTicksLimit: 6
+          maxTicksLimit: 9
         }
       }],
       yAxes: [{
         ticks: {
           min: 0,
-          max: 300,
+          max: 60,
           maxTicksLimit: 5
         },
         gridLines: {
